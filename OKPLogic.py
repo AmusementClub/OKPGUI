@@ -13,7 +13,7 @@ import markdown
 from MarkdownView import MarkdownViewWindow
 import toml
 import subprocess
-
+from html2phpbbcode.parser import HTML2PHPBBCode
 
 
 CATEGORY = {
@@ -37,6 +37,9 @@ class OKPMainWIndow(QMainWindow, Ui_MainWindow):
         QMainWindow.__init__(self, *args, **kwargs)
         self.setupUi(self)
         self.setupUi2()
+        if not Path("OKP.Core.exe").exists():
+            self.warning("找不到 OKP.Core.exe，请将本程序复制到 OKP.Core.exe 同目录下。")
+            sys.exit(1)
         
     def print(self):
         print("OKP Clicked")
@@ -85,7 +88,6 @@ class OKPMainWIndow(QMainWindow, Ui_MainWindow):
         self.buttonOKP.clicked.connect(self.publishRun)
 
     
-
     def selectTorrentFile(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"Torrent file v1 (*.torrent)")[0]
         self.textTorrentPath.setText(fname)
@@ -108,6 +110,7 @@ template:
     profile: ""
     tags: ""
     titlePattern: ""
+    title: ""
             ''')
 
 
@@ -181,6 +184,7 @@ template:
             self.textDescription.setText(conf['description'])
             self.reloadMenuSelectCookies()
             self.textTags.setText(conf['tags'])
+            self.textTitle.setText(conf['title'])
 
             self.checkboxDmhyPublish.setChecked(conf['checkDmhy'])
             self.checkboxNyaaPublish.setChecked(conf['checkNyaa'])
@@ -203,10 +207,12 @@ template:
         epPattern = re.escape(epPattern)
         epPattern = re.sub(r"<", r"(?P<", epPattern)
         epPattern = re.sub(r">", r">.+)", epPattern)
+        
         try:
             m = re.search(epPattern, filename)
         except re.error:
-            raise 
+            return 
+
         if not m:
             return
 
@@ -256,7 +262,8 @@ template:
             'checkNyaa': self.checkboxNyaaPublish.isChecked(),
             'checkAcgrip': self.checkboxAcgripPublish.isChecked(),
             'checkAcgnxasia': self.checkboxAcgnxasiaPublish.isChecked(),
-            'checkAcgnxglobal': self.checkboxAcgnxglobalPublish.isChecked()
+            'checkAcgnxglobal': self.checkboxAcgnxglobalPublish.isChecked(),
+            'title': self.textTitle.text()
         }
 
         with open(TEMPLATE_CONFIG, "w", encoding='utf-8') as file:
@@ -394,6 +401,18 @@ profiles:
         except: pass
 
     def publishRun(self):
+        # Sanity check
+        if self.textTorrentPath.text() == "":
+            self.warning("种子文件不能为空。")
+            return
+        
+        if not Path(self.textTorrentPath.text()):
+            self.warning("无法找到种子文件。")
+            return
+        
+        if self.textTitle.text() == "":
+            self.warning("标题不能为空。")
+            return
 
         # Generate template.toml
         tags = map(lambda x: x.strip() , self.textTags.text().split(","))
@@ -401,7 +420,9 @@ profiles:
 
         md = self.textDescription.toPlainText()
         html = markdown.markdown(md)
-        bbcode = md
+        parser = HTML2PHPBBCode()
+        bbcode = parser.feed(html)
+        
 
         if self.checkboxDmhyPublish.isChecked():
             intro_templates.append(
@@ -426,7 +447,7 @@ profiles:
                 {
                 'site': 'acgrip',
                 'name': self.textAcgripName.text(),
-                'contet': bbcode
+                'content': bbcode
                 }
             )
 

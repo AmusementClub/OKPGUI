@@ -519,15 +519,18 @@ class Ui_MainWindow(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.textBrowser = QtWidgets.QTextBrowser(parent=self.verticalLayoutWidget)
-        self.textBrowser.setObjectName("textBrowser")
-        self.verticalLayout.addWidget(self.textBrowser)
+        self.label_11 = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
+        self.label_11.setTextFormat(QtCore.Qt.TextFormat.RichText)
+        self.label_11.setOpenExternalLinks(True)
+        self.label_11.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
+        self.label_11.setObjectName("label_11")
+        self.verticalLayout.addWidget(self.label_11)
         self.tab.addTab(self.tab_2, "")
         self.gridLayout_2.addWidget(self.tab, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.tab.setCurrentIndex(0)
+        self.tab.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -582,14 +585,14 @@ class Ui_MainWindow(object):
         self.buttonDeleteProfile.setText(_translate("MainWindow", "删除身份"))
         self.label_6.setText(_translate("MainWindow", "必须保存身份后，改动才会生效！"))
         self.tab.setTabText(self.tab.indexOf(self.CookiesManagerTab), _translate("MainWindow", "身份管理器"))
-        self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.label_11.setText(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Microsoft YaHei UI\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">此软件为 <a href=\"https://github.com/AmusementClub/OKP\"><span style=\" text-decoration: underline; color:#0000ff;\">OKP</span></a> 的 GUI，由<a href=\"https://github.com/AmusementClub\"><span style=\" text-decoration: underline; color:#0000ff;\">娱乐部</span></a>制作，用于快速在多个 BT 资源站发布种子。</p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">使用方法参见 GitHub 上的 <a href=\"https://github.com/AmusementClub/OKPGUI\"><span style=\" text-decoration: underline; color:#0000ff;\">README</span></a>。</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Version: 0.0.1 Alpha 内部测试版。</p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
@@ -598,7 +601,7 @@ class Ui_MainWindow(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">作者：<a href=\"https://github.com/tastysugar\"><span style=\" text-decoration: underline; color:#0000ff;\">tastySugar</span></a></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.tab.setTabText(self.tab.indexOf(self.tab_2), _translate("MainWindow", "Page"))
+        self.tab.setTabText(self.tab.indexOf(self.tab_2), _translate("MainWindow", "关于"))
 
 
 if __name__ == "__main__":

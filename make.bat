@@ -1,1 +1,1 @@
-pyinstaller --onefile main.py -n OKPGUI.exe
+pyinstaller --onefile --noconsole main.py -n OKPGUI.exe
