@@ -287,16 +287,16 @@ template:
             with open(path, "w", encoding="utf-8") as f:
                 f.write(
 '''
-lastUsed: SubGroup
+lastUsed: 新身份
 profiles:
-  SubGroup:
+  新身份:
     cookies: 
-    dmhyName: SubGroup
-    nyaaName: SubGroup
-    acgripName: SubGroup
-    bangumiName: SubGroup
-    acgnxasiaName: SubGroup
-    acgnxglobalName: SubGroup
+    dmhyName: 新身份
+    nyaaName: 新身份
+    acgripName: 新身份
+    bangumiName: 新身份
+    acgnxasiaName: 新身份
+    acgnxglobalName: 新身份
 '''
                 )
         with open(path, "r", encoding="utf-8") as f:
