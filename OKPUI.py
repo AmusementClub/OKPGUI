@@ -508,6 +508,18 @@ class Ui_MainWindow(object):
         self.label_14.setObjectName("label_14")
         self.gridLayout_3.addWidget(self.label_14, 3, 0, 1, 1)
         self.tab.addTab(self.CookiesManagerTab, "")
+        self.tab_2 = QtWidgets.QWidget()
+        self.tab_2.setObjectName("tab_2")
+        self.verticalLayoutWidget = QtWidgets.QWidget(parent=self.tab_2)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 581, 821))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.textBrowser = QtWidgets.QTextBrowser(parent=self.verticalLayoutWidget)
+        self.textBrowser.setObjectName("textBrowser")
+        self.verticalLayout.addWidget(self.textBrowser)
+        self.tab.addTab(self.tab_2, "")
         self.gridLayout_2.addWidget(self.tab, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -566,6 +578,23 @@ class Ui_MainWindow(object):
         self.label_13.setText(_translate("MainWindow", "选择身份"))
         self.label_14.setText(_translate("MainWindow", "Cookies 文件："))
         self.tab.setTabText(self.tab.indexOf(self.CookiesManagerTab), _translate("MainWindow", "身份管理器"))
+        self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Microsoft YaHei UI\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">此软件为 <a href=\"https://github.com/AmusementClub/OKP\"><span style=\" text-decoration: underline; color:#0000ff;\">OKP</span></a> 的 GUI，由<a href=\"https://github.com/AmusementClub\"><span style=\" text-decoration: underline; color:#0000ff;\">娱乐部</span></a>制作，用于快速在多个 BT 资源站发布种子。</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">使用方法参见 GitHub 上的 <a href=\"https://github.com/AmusementClub/OKPGUI\"><span style=\" text-decoration: underline; color:#0000ff;\">README</span></a>。</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">作者：<a href=\"https://github.com/tastysugar\"><span style=\" text-decoration: underline; color:#0000ff;\">tastySugar</span></a></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.tab.setTabText(self.tab.indexOf(self.tab_2), _translate("MainWindow", "Page"))
 
 
 if __name__ == "__main__":
