@@ -94,7 +94,6 @@ class WebEngineView(QWidget):
     def onLoadFinished(self):
         pass
 
-    @exc
     def onCookieAdd(self, cookie:QNetworkCookie):
         if filterCookies(cookie):
             self.cookies.append(cookiesToStr(cookie))

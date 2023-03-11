@@ -25,9 +25,11 @@ def pathDragLeaveEvent(obj, placeholderText):
 def exc(func):
     def inner(*args, **kwargs):
         try:
-            func(*args, **kwargs)
+            res = func(*args, **kwargs)
         except Exception as e:
             with open(f"Traceback_{datetime.datetime.now().strftime(r'%Y%m%d%H%M%S')}.txt", "w", encoding="utf-8") as f:
-                traceback.print_exception(e, file=f)
+                traceback.print_exc(e, file=f)
             raise e
+        return res
+
     return inner

@@ -163,7 +163,6 @@ template:
             c = re.sub(r"\n\n", "", c)
             self.textCookies.setText(c)
 
-    @exc
     def setUserAgent(self, ua:str):
         if not re.search(r"^user-agent:", self.textCookies.toPlainText()):
             self.textCookies.setText(f"user-agent:\t{ua}\n" + self.textCookies.toPlainText())
@@ -172,7 +171,6 @@ template:
                 re.sub(r"^user-agent:.*\n", f"user-agent:\t{ua}\n", self.textCookies.toPlainText())
             )
             
-    @exc
     def updateTemplate(self):
         selected = self.menuTemplateSelection.currentText()
         if selected == "创建新模板":
@@ -212,7 +210,6 @@ template:
             self.checkboxAcgnxglobalPublish.setChecked(conf['checkAcgnxglobal'])
 
 
-    @exc
     def setTitleText(self):
         # set title based on patterns, set to "" when no pattern set
         filename = Path(self.textTorrentPath.text()).name
@@ -256,7 +253,6 @@ template:
             pass
 
         
-    @exc
     def saveTemplate(self):
         templateName = self.textTemplateName.text()
 
@@ -290,7 +286,7 @@ template:
         
         self.reloadTemplate()
             
-    @exc
+
     def deleteTemplate(self):
         # todo: ask for confirmation
         if self.warning(f'正在删除"{self.menuTemplateSelection.currentText()}"模板，删除后将无法恢复，是否继续？'):
@@ -362,7 +358,6 @@ profiles:
             self.textAcgnxglobalName.setText(prof['acgnxglobalName'])
             self.textCookies.setText(prof['cookies'])
 
-    @exc
     def saveProfile(self):
         profileName = self.textProfileName.text()
         
@@ -391,7 +386,7 @@ profiles:
         self.reloadProfile()
         self.reloadMenuSelectCookies()
 
-    @exc
+
     def deleteProfile(self):
         if self.warning(f'正在删除"{self.menuProfileSelection.currentText()}"身份，删除后将无法恢复，是否继续？'):
             self.profile['profiles'].pop(self.menuProfileSelection.currentText())
@@ -401,14 +396,13 @@ profiles:
             self.reloadMenuSelectCookies()
             self.reloadProfile()
 
-    @exc
+
     def previewMarkdown(self):
         md = markdown.markdown(self.textDescription.toPlainText())
         #self.textDescription.setPlainText(md)
         self.markdownWindow = MarkdownViewWindow(html=md,parentWindow=self)
         self.markdownWindow.show()
 
-    @exc
     def warning(self, message):
         warning = WarningDialog()
         warning.label.setText(message)
@@ -421,7 +415,6 @@ profiles:
         try: self.menuSelectCookies.setCurrentText(self.conf['template'][self.menuTemplateSelection.currentText()]['profile'])
         except: pass
 
-    @exc
     def publishRun(self):
         # Sanity check
         if self.textTorrentPath.text() == "":
