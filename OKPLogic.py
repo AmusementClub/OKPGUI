@@ -52,6 +52,8 @@ class OKPMainWIndow(QMainWindow, Ui_MainWindow):
         self.HomeTab.dragLeaveEvent = helpers.pathDragLeaveEvent(self.textTorrentPath, "可直接 .torrent 文件拖放到此处")
 
         # Select template
+        self.reloadProfile()
+
         self.reloadTemplate()
         self.updateTemplate()
 
@@ -76,13 +78,12 @@ class OKPMainWIndow(QMainWindow, Ui_MainWindow):
         self.buttonAcgnxasiaLogin.clicked.connect(self.loginWebsite("https://share.acgnx.se/user.php?o=login"))
         self.buttonAcgnxglobalLogin.clicked.connect(self.loginWebsite("https://www.acgnx.se/user.php?o=login"))
 
-        self.reloadProfile()
         self.buttonSaveProfile.clicked.connect(self.saveProfile)
-
         self.buttonDeleteProfile.clicked.connect(self.deleteProfile)
 
         # publish button
         self.buttonOKP.clicked.connect(self.publishRun)
+
     
 
     def selectTorrentFile(self):
@@ -164,7 +165,7 @@ template:
             self.textAbout.clear()
             self.textTags.setText("Anime")
             self.textDescription.clear()
-            self.menuProfileSelection.setCurrentIndex(0)
+            self.menuSelectCookies.setCurrentText(0)
 
 
         elif selected not in self.conf['template']:
@@ -178,7 +179,7 @@ template:
             self.textPoster.setText(conf['poster'])
             self.textAbout.setText(conf['about'])
             self.textDescription.setText(conf['description'])
-            self.menuProfileSelection.setCurrentText(conf['profile'])
+            self.reloadMenuSelectCookies()
             self.textTags.setText(conf['tags'])
 
             self.checkboxDmhyPublish.setChecked(conf['checkDmhy'])
@@ -282,7 +283,7 @@ template:
 lastUsed: SubGroup
 profiles:
   SubGroup:
-    cookies:
+    cookies: 
     dmhyName: SubGroup
     nyaaName: SubGroup
     acgripName: SubGroup
@@ -363,17 +364,18 @@ profiles:
             yaml.safe_dump(self.profile, file, encoding='utf-8',allow_unicode=True)
         
         self.reloadProfile()
+        self.reloadMenuSelectCookies()
 
     def deleteProfile(self):
         if self.warning(f'正在删除"{self.menuProfileSelection.currentText()}"身份，删除后将无法恢复，是否继续？'):
             self.profile['profiles'].pop(self.menuProfileSelection.currentText())
             with open(PROFILE_CONFIG, "w", encoding='utf-8') as file:
                 yaml.safe_dump(self.profile, file, encoding='utf-8',allow_unicode=True)
-
+            
+            self.reloadMenuSelectCookies()
             self.reloadProfile()
 
     def previewMarkdown(self):
-
         md = markdown.markdown(self.textDescription.toPlainText())
         #self.textDescription.setPlainText(md)
         self.markdownWindow = MarkdownViewWindow(html=md,parentWindow=self)
@@ -385,6 +387,11 @@ profiles:
         warning.show()
         return warning.exec()
 
+    def reloadMenuSelectCookies(self):
+        self.menuSelectCookies.clear()
+        self.menuSelectCookies.addItems(self.profile['profiles'].keys())
+        try: self.menuSelectCookies.setCurrentText(self.conf['template'][self.menuTemplateSelection.currentText()]['profile'])
+        except: pass
 
     def publishRun(self):
 
@@ -465,16 +472,8 @@ profiles:
         
         # Generate cookies.txt
         with open("cookies.txt", "w", encoding='utf-8') as f:
-            f.write(self.textCookies.toPlainText())
-
-        print([
-            "OKP.Core.exe", 
-            self.textTorrentPath.text(),
-            "-s", Path.cwd().joinpath("template.toml"),
-            '--cookies', Path.cwd().joinpath("cookies.txt")
-            ])
+            f.write(self.profile['profiles'][self.menuSelectCookies.currentText()]['cookies'])
         
-
         p = subprocess.Popen([
             "OKP.Core.exe", 
             self.textTorrentPath.text(),

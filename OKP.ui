@@ -117,98 +117,6 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_9">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>内容</string>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="5">
-         <widget class="QPushButton" name="buttonHowToUseTags">
-          <property name="font">
-           <font>
-            <family>Microsoft YaHei UI</family>
-            <pointsize>12</pointsize>
-            <weight>50</weight>
-            <italic>false</italic>
-            <bold>false</bold>
-            <underline>true</underline>
-           </font>
-          </property>
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgba(0,0,0,0);
-font: 12pt &quot;Microsoft YaHei UI&quot;;
-color:rgb(0, 0, 255)</string>
-          </property>
-          <property name="text">
-           <string>如何使用tags？</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2" colspan="3">
-         <widget class="QLineEdit" name="textTemplateName">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="0" colspan="9">
-         <widget class="QPushButton" name="buttonOKP">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>20</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>One Key Publish!</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2" colspan="6">
-         <widget class="QLineEdit" name="textTorrentPath">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="placeholderText">
-           <string>可直接 .torrent 文件拖放到此处</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="5" colspan="2">
-         <widget class="QPushButton" name="buttonSaveTemplate">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>保存模板</string>
-          </property>
-         </widget>
-        </item>
         <item row="7" column="0" colspan="9">
          <layout class="QFormLayout" name="formLayout_2">
           <property name="fieldGrowthPolicy">
@@ -395,6 +303,178 @@ color:rgb(0, 0, 255)</string>
           </item>
          </layout>
         </item>
+        <item row="0" column="2" colspan="6">
+         <widget class="QLineEdit" name="textTorrentPath">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="placeholderText">
+           <string>可直接 .torrent 文件拖放到此处</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="5" colspan="2">
+         <widget class="QPushButton" name="buttonSaveTemplate">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>保存模板</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0" colspan="9">
+         <widget class="QPushButton" name="buttonOKP">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>20</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>One Key Publish!</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="5">
+         <widget class="QPushButton" name="buttonHowToUseTags">
+          <property name="font">
+           <font>
+            <family>Microsoft YaHei UI</family>
+            <pointsize>12</pointsize>
+            <weight>50</weight>
+            <italic>false</italic>
+            <bold>false</bold>
+            <underline>true</underline>
+           </font>
+          </property>
+          <property name="cursor">
+           <cursorShape>PointingHandCursor</cursorShape>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgba(0,0,0,0);
+font: 12pt &quot;Microsoft YaHei UI&quot;;
+color:rgb(0, 0, 255)</string>
+          </property>
+          <property name="text">
+           <string>如何使用tags？</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_9">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>内容</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2" colspan="3">
+         <widget class="QLineEdit" name="textTemplateName">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="8">
+         <widget class="QPushButton" name="buttonBrowse">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>浏览</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0" colspan="9">
+         <widget class="QTextEdit" name="textDescription">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <widget class="QLabel" name="label_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>模板名称</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="label_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>种子文件</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2" colspan="7">
+         <widget class="QComboBox" name="menuTemplateSelection">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="whatsThis">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;第一次使用请选择「新模板」&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <item>
+           <property name="text">
+            <string/>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="4" column="6" colspan="3">
+         <widget class="QPushButton" name="buttonPreviewMarkdown">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>预览</string>
+          </property>
+         </widget>
+        </item>
         <item row="3" column="0" colspan="9">
          <layout class="QFormLayout" name="formLayout">
           <property name="fieldGrowthPolicy">
@@ -580,86 +660,6 @@ color:rgb(0, 0, 255)</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="2" colspan="7">
-         <widget class="QComboBox" name="menuTemplateSelection">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="whatsThis">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;第一次使用请选择「新模板」&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-          </property>
-          <item>
-           <property name="text">
-            <string/>
-           </property>
-          </item>
-         </widget>
-        </item>
-        <item row="4" column="6" colspan="3">
-         <widget class="QPushButton" name="buttonPreviewMarkdown">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>预览</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="2">
-         <widget class="QLabel" name="label_3">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>种子文件</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="2">
-         <widget class="QLabel" name="label_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>模板名称</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="0" colspan="9">
-         <widget class="QTextEdit" name="textDescription">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="8">
-         <widget class="QPushButton" name="buttonBrowse">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>浏览</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="CookiesManagerTab">
@@ -709,7 +709,7 @@ color:rgb(0, 0, 255)</string>
           <item row="2" column="1">
            <widget class="QLineEdit" name="textNyaaName">
             <property name="readOnly">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -755,6 +755,13 @@ color:rgb(0, 0, 255)</string>
           </item>
          </layout>
         </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_15">
+          <property name="text">
+           <string>身份名称</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="2">
          <widget class="QPushButton" name="buttonSaveProfile">
           <property name="text">
@@ -762,12 +769,8 @@ color:rgb(0, 0, 255)</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_15">
-          <property name="text">
-           <string>身份名称</string>
-          </property>
-         </widget>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="textProfileName"/>
         </item>
         <item row="0" column="1" colspan="3">
          <widget class="QComboBox" name="menuProfileSelection">
@@ -779,27 +782,6 @@ color:rgb(0, 0, 255)</string>
             <string>新身份</string>
            </property>
           </item>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="textProfileName"/>
-        </item>
-        <item row="1" column="3">
-         <widget class="QPushButton" name="buttonDeleteProfile">
-          <property name="styleSheet">
-           <string notr="true">color: rgb(255, 0, 30);
-font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
-          </property>
-          <property name="text">
-           <string>删除身份</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_13">
-          <property name="text">
-           <string>选择身份</string>
-          </property>
          </widget>
         </item>
         <item row="4" column="0" colspan="4">
@@ -819,6 +801,31 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
          <widget class="QLabel" name="label_14">
           <property name="text">
            <string>Cookies 文件：</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_13">
+          <property name="text">
+           <string>选择身份</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QPushButton" name="buttonDeleteProfile">
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 0, 30);
+font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
+          </property>
+          <property name="text">
+           <string>删除身份</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>必须保存身份后，改动才会生效！</string>
           </property>
          </widget>
         </item>

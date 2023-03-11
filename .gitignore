@@ -222,7 +222,7 @@ OKP.Core.pdb
 
 template.toml
 cookies.txt
-main.spec
+*.spec
 log*.txt
 
 okpgui_config.yml
