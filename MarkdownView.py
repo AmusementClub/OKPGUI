@@ -17,28 +17,8 @@ class MarkdownViewWindow(QWidget):
         self.setWindowTitle("Preview")
 
         self.browser = QWebEngineView()
-        #self.browser.loadFinished.connect(self.onLoadFinished)
         self.browser.setHtml(html)
 
         vbox = QVBoxLayout(self)
-
-
-        # toolbar = QToolBar('toolbar')
-        # self.saveButton = QAction("保存", parent=self)
-        # saveCloseButton = QAction("保存并关闭", parent=self)
-        # closeButton = QAction("关闭", parent=self)
-
-        # # saveCloseButton.triggered.connect()
-        # # closeButton.triggered.connect()
-        # # self.saveButton.triggered.connect()
-
-        # toolbar.addAction(saveCloseButton)
-        # toolbar.addAction(closeButton)
-        # toolbar.addAction(self.saveButton)
-
-
-        # #self.cookiesJar = dict() # key: (domain, name) value: cookies(QNetworkCookie)
-        # self.cookies = []
-        # vbox.addWidget(toolbar)
         vbox.addWidget(self.browser)
         self.setLayout(vbox)
