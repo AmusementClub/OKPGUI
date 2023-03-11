@@ -15,6 +15,7 @@ import toml
 import subprocess
 from html2phpbbcode.parser import HTML2PHPBBCode
 
+VERSION = "v0.0.2 Alpha 内部测试版"
 
 CATEGORY = {
     'Anime': ['Default', 'MV', 'TV', 'Movie', 'Collection', 'Raw', 'English'],
@@ -45,6 +46,23 @@ class OKPMainWIndow(QMainWindow, Ui_MainWindow):
         print("OKP Clicked")
 
     def setupUi2(self):
+        # set title
+        self.setWindowTitle("OKPGUI by AmusementClub " + VERSION)
+
+        self.textAboutProgram.setText(f"""
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1" /><style type="text/css">
+p, li {{ white-space: pre-wrap; }}
+</style></head><body style=" font-family:'Microsoft YaHei UI'; font-size:12pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">此软件为 <a href="https://github.com/AmusementClub/OKP"><span style=" text-decoration: underline; color:#0000ff;">OKP</span></a> 的 GUI，由<a href="https://github.com/AmusementClub"><span style=" text-decoration: underline; color:#0000ff;">娱乐部</span></a>制作，用于快速在多个 BT 资源站发布种子。</p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">使用方法参见 GitHub 上的 <a href="https://github.com/AmusementClub/OKPGUI"><span style=" text-decoration: underline; color:#0000ff;">README</span></a>。</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">Version: {VERSION}</p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p>
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">作者：<a href="https://github.com/tastysugar"><span style=" text-decoration: underline; color:#0000ff;">tastySugar</span></a></p>
+<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><br /></p></body></html>
+                                      """)
+
         # Select torrent
         self.buttonBrowse.clicked.connect(self.selectTorrentFile)
         
@@ -138,6 +156,7 @@ template:
 
     def addCookies(self, cookies:str):
         c = self.textCookies.toPlainText()
+        cookies = re.sub(r"https://.", "https://")
         if c == "":
             self.textCookies.setText(cookies)
         else:

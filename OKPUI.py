@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(600, 881)
+        MainWindow.resize(600, 840)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -513,18 +513,17 @@ class Ui_MainWindow(object):
         self.tab.addTab(self.CookiesManagerTab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
-        self.verticalLayoutWidget = QtWidgets.QWidget(parent=self.tab_2)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 581, 821))
-        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.tab_2)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
-        self.label_11 = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
-        self.label_11.setTextFormat(QtCore.Qt.TextFormat.RichText)
-        self.label_11.setOpenExternalLinks(True)
-        self.label_11.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
-        self.label_11.setObjectName("label_11")
-        self.verticalLayout.addWidget(self.label_11)
+        self.textAboutProgram = QtWidgets.QLabel(parent=self.tab_2)
+        self.textAboutProgram.setTextFormat(QtCore.Qt.TextFormat.RichText)
+        self.textAboutProgram.setOpenExternalLinks(True)
+        self.textAboutProgram.setTextInteractionFlags(QtCore.Qt.TextInteractionFlag.TextBrowserInteraction)
+        self.textAboutProgram.setObjectName("textAboutProgram")
+        self.verticalLayout.addWidget(self.textAboutProgram)
+        self.verticalLayout_2.addLayout(self.verticalLayout)
         self.tab.addTab(self.tab_2, "")
         self.gridLayout_2.addWidget(self.tab, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -585,7 +584,7 @@ class Ui_MainWindow(object):
         self.buttonDeleteProfile.setText(_translate("MainWindow", "删除身份"))
         self.label_6.setText(_translate("MainWindow", "必须保存身份后，改动才会生效！"))
         self.tab.setTabText(self.tab.indexOf(self.CookiesManagerTab), _translate("MainWindow", "身份管理器"))
-        self.label_11.setText(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.textAboutProgram.setText(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Microsoft YaHei UI\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"

@@ -29,7 +29,6 @@ def cookiesToStr(cookie: QNetworkCookie):
     expires = cookie.expirationDate().toSecsSinceEpoch()
     
     return f"https://{domain}\t{name}={value},domain={domain},path={path},expires={expires}"
-    return f"{domain}\tFALSE\t{path}\t{https}\t{expiration}\t{name}\t{value}"
 
 def filterCookies(cookie: QNetworkCookie) -> bool:
     if cookie.domain() == "share.dmhy.org":
