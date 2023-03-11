@@ -1,6 +1,5 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QLineEdit
-import sys
-from OKPUI import Ui_MainWindow
+import datetime
+import traceback
 
 def pathDragEnterEvent(obj, placeholderText):
     def dragEnter(event):
@@ -22,3 +21,13 @@ def pathDragLeaveEvent(obj, placeholderText):
     def helper(event):
         obj.setPlaceholderText(placeholderText)
     return helper
+
+def exc(func):
+    def inner(*args, **kwargs):
+        try:
+            func(*args, **kwargs)
+        except Exception as e:
+            with open(f"Traceback_{datetime.datetime.now().strftime(r'%Y%m%d%H%M%S')}.txt", "w", encoding="utf-8") as f:
+                traceback.print_exception(e, file=f)
+            raise e
+    return inner

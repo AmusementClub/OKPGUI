@@ -4,9 +4,9 @@ from PyQt6.QtCore import QUrl, QByteArray, QSize
 from PyQt6.QtWebEngineWidgets import QWebEngineView
 from PyQt6.QtWebEngineCore import QWebEngineProfile
 from PyQt6.QtWidgets import QApplication, QTextEdit, QPushButton, QToolBar, QMainWindow, QDialog, QWidget, QVBoxLayout
-from PyQt6.QtNetwork import QNetworkCookie, QNetworkCookieJar
+from PyQt6.QtNetwork import QNetworkCookie
 from PyQt6.QtGui import QAction
-from urllib import parse
+from helpers import exc
 
 
 def bytestostr(data):
@@ -51,6 +51,7 @@ def filterCookies(cookie: QNetworkCookie) -> bool:
 
 
 class WebEngineView(QWidget):
+    @exc
     def __init__(self, url, parentWindow, *args, **kwargs):
         super(QWidget, self).__init__(*args, **kwargs)
         QWebEngineProfile.defaultProfile().cookieStore().cookieAdded.connect(self.onCookieAdd)
@@ -78,26 +79,21 @@ class WebEngineView(QWidget):
         toolbar.addAction(self.saveButton)
 
 
-        #self.cookiesJar = dict() # key: (domain, name) value: cookies(QNetworkCookie)
         self.cookies = []
         vbox.addWidget(toolbar)
         vbox.addWidget(self.browser)
         self.setLayout(vbox)
 
-        
+    @exc
     def closeEvent(self, event):
-
-        # for v in self.cookiesJar.values():
-        #     self.cookies.append(cookiesToStr(v))
-
         self.parentWindow.addCookies("\n".join(self.cookies))
         self.parentWindow.setUserAgent(self.browser.page().profile().httpUserAgent())
         super(WebEngineView, self).closeEvent(event)
 
-
     def onLoadFinished(self):
         pass
 
+    @exc
     def onCookieAdd(self, cookie:QNetworkCookie):
         if filterCookies(cookie):
             self.cookies.append(cookiesToStr(cookie))
@@ -106,3 +102,5 @@ class WebEngineView(QWidget):
     def saveCookies(self):
         self.close()
 
+
+    

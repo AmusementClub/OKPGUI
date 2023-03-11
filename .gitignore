@@ -227,3 +227,5 @@ log*.txt
 
 okpgui_config.yml
 okpgui_profile.yml
+
+Traceback_*
