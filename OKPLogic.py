@@ -95,9 +95,9 @@ class OKPMainWIndow(QMainWindow, Ui_MainWindow):
     def initializeConfig(self):
         with open(TEMPLATE_CONFIG, "w", encoding='utf-8') as f:
             f.write('''
-lastUsed: default
+lastUsed: 新模板
 template:
-  default:
+  新模板:
     about: 
     checkAcgnxasia: false
     checkAcgnxglobal: false
@@ -108,7 +108,7 @@ template:
     epPattern: ""
     poster: ""
     profile: ""
-    tags: ""
+    tags: "Anime"
     titlePattern: ""
     title: ""
             ''')
@@ -168,7 +168,7 @@ template:
             self.textAbout.clear()
             self.textTags.setText("Anime")
             self.textDescription.clear()
-            self.menuSelectCookies.setCurrentText(0)
+            self.menuSelectCookies.setCurrentIndex(0)
 
 
         elif selected not in self.conf['template']:
@@ -207,7 +207,7 @@ template:
         epPattern = re.escape(epPattern)
         epPattern = re.sub(r"<", r"(?P<", epPattern)
         epPattern = re.sub(r">", r">.+)", epPattern)
-        
+
         try:
             m = re.search(epPattern, filename)
         except re.error:
