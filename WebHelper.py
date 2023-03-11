@@ -88,6 +88,7 @@ class WebEngineView(QWidget):
     def closeEvent(self, event):
         self.parentWindow.addCookies("\n".join(self.cookies))
         self.parentWindow.setUserAgent(self.browser.page().profile().httpUserAgent())
+        self.parentWindow.saveProfile()
         super(WebEngineView, self).closeEvent(event)
 
     def onLoadFinished(self):
