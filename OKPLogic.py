@@ -155,7 +155,7 @@ template:
 
     def addCookies(self, cookies:str):
         c = self.textCookies.toPlainText()
-        cookies = re.sub(r"https://.", "https://", cookies)
+        cookies = re.sub(r"https://\.", "https://", cookies)
         if c == "":
             self.textCookies.setText(cookies)
         else:
