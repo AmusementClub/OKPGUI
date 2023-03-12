@@ -63,7 +63,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="HomeTab">
        <property name="sizePolicy">
@@ -868,13 +868,6 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="3">
-         <widget class="QPushButton" name="buttonSaveAPI">
-          <property name="text">
-           <string>保存 API</string>
-          </property>
-         </widget>
-        </item>
         <item row="5" column="0" colspan="4">
          <layout class="QFormLayout" name="formLayout_4">
           <item row="0" column="0">
@@ -907,8 +900,11 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
           </item>
           <item row="1" column="1">
            <widget class="QLineEdit" name="textProxyHost">
-            <property name="placeholderText">
+            <property name="text">
              <string>http://127.0.0.1:7890</string>
+            </property>
+            <property name="placeholderText">
+             <string/>
             </property>
            </widget>
           </item>

@@ -84,10 +84,10 @@ class WebEngineView(QWidget):
         vbox.addWidget(self.browser)
         self.setLayout(vbox)
 
-
-        parsed = parse.urlparse(self.parentWindow.profile['proxy'])
-        self.proxy = QNetworkProxy(QNetworkProxy.ProxyType.HttpProxy, hostName=parsed.hostname, port=parsed.port)
-        QNetworkProxy.setApplicationProxy(self.proxy)
+        if parentWindow.menuProxyType.currentText == "HTTP":
+            parsed = parse.urlparse(self.parentWindow.profile['proxy'])
+            self.proxy = QNetworkProxy(QNetworkProxy.ProxyType.HttpProxy, hostName=parsed.hostname, port=parsed.port)
+            QNetworkProxy.setApplicationProxy(self.proxy)
 
         
         self.browser.load(url)

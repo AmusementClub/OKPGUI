@@ -105,7 +105,6 @@ p, li {{ white-space: pre-wrap; }}
         self.menuProxyType.currentTextChanged.connect(self.onProxySelection)
         self.onProxySelection()
 
-        #self.buttonSaveAPI.clicked.connect(self.saveAPIToken)
         self.buttonSaveProxy.clicked.connect(self.saveProfile)
 
         self.textAcgnxasiaToken.textEdited.connect(self.applyAcgnxasiaAPIToken)
@@ -116,7 +115,7 @@ p, li {{ white-space: pre-wrap; }}
         self.buttonOKP.clicked.connect(self.publishRun)
 
 
-    
+
     def selectTorrentFile(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"Torrent file v1 (*.torrent)")[0]
         self.textTorrentPath.setText(fname)
@@ -320,7 +319,7 @@ template:
                 f.write(
 '''
 lastUsed: 新身份
-proxy:
+proxy: http://127.0.0.1:7890
 profiles:
   新身份:
     cookies: 
@@ -366,7 +365,7 @@ profiles:
             self.textAcgnxglobalToken.clear()
             self.textCookies.clear()
             self.menuProxyType.setCurrentIndex(0)
-            self.textProxyHost.clear()
+            self.textProxyHost.setText("http://127.0.0.1:7890")
 
         elif selected not in self.profile["profiles"]:
             return
@@ -386,12 +385,12 @@ profiles:
             self.textCookies.setText(prof['cookies'])
             
 
-            res = re.search(r'https:\/\/share.acgnx.se\ttoken=(?P<token>.*)(\n|$)', prof['cookies'])
+            res = re.search(r'https:\/\/share.acgnx.se\ttoken=(?P<token>.*)(\n|$)', str(prof['cookies']))
             if res:
                 self.textAcgnxasiaToken.setText(res['token'])
             else:
                 self.textAcgnxasiaToken.clear()
-            res = re.search(r'https:\/\/www.acgnx.se\ttoken=(?P<token>.*)(\n|$)', prof['cookies'])
+            res = re.search(r'https:\/\/www.acgnx.se\ttoken=(?P<token>.*)(\n|$)', str(prof['cookies']))
             if res:
                 self.textAcgnxglobalToken.setText(res['token'])
             else:

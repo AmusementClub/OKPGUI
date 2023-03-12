@@ -523,9 +523,6 @@ class Ui_MainWindow(object):
         self.label_6 = QtWidgets.QLabel(parent=self.CookiesManagerTab)
         self.label_6.setObjectName("label_6")
         self.gridLayout_3.addWidget(self.label_6, 3, 1, 1, 1)
-        self.buttonSaveAPI = QtWidgets.QPushButton(parent=self.CookiesManagerTab)
-        self.buttonSaveAPI.setObjectName("buttonSaveAPI")
-        self.gridLayout_3.addWidget(self.buttonSaveAPI, 3, 3, 1, 1)
         self.formLayout_4 = QtWidgets.QFormLayout()
         self.formLayout_4.setObjectName("formLayout_4")
         self.Label = QtWidgets.QLabel(parent=self.CookiesManagerTab)
@@ -540,6 +537,7 @@ class Ui_MainWindow(object):
         self.hostLabel.setObjectName("hostLabel")
         self.formLayout_4.setWidget(1, QtWidgets.QFormLayout.ItemRole.LabelRole, self.hostLabel)
         self.textProxyHost = QtWidgets.QLineEdit(parent=self.CookiesManagerTab)
+        self.textProxyHost.setPlaceholderText("")
         self.textProxyHost.setObjectName("textProxyHost")
         self.formLayout_4.setWidget(1, QtWidgets.QFormLayout.ItemRole.FieldRole, self.textProxyHost)
         self.buttonSaveProxy = QtWidgets.QPushButton(parent=self.CookiesManagerTab)
@@ -565,7 +563,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.tab.setCurrentIndex(0)
+        self.tab.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -625,12 +623,11 @@ class Ui_MainWindow(object):
         self.label_14.setText(_translate("MainWindow", "Cookies 文件："))
         self.buttonDeleteProfile.setText(_translate("MainWindow", "删除身份"))
         self.label_6.setText(_translate("MainWindow", "本页中任何修改都必须保存身份才会生效！"))
-        self.buttonSaveAPI.setText(_translate("MainWindow", "保存 API"))
         self.Label.setText(_translate("MainWindow", "代理类型"))
         self.menuProxyType.setItemText(0, _translate("MainWindow", "不使用代理"))
         self.menuProxyType.setItemText(1, _translate("MainWindow", "HTTP"))
         self.hostLabel.setText(_translate("MainWindow", "Host"))
-        self.textProxyHost.setPlaceholderText(_translate("MainWindow", "http://127.0.0.1:7890"))
+        self.textProxyHost.setText(_translate("MainWindow", "http://127.0.0.1:7890"))
         self.buttonSaveProxy.setText(_translate("MainWindow", "保存身份"))
         self.tab.setTabText(self.tab.indexOf(self.CookiesManagerTab), _translate("MainWindow", "身份管理器"))
         self.textAboutProgram.setText(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
