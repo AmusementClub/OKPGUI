@@ -14,7 +14,7 @@ from MarkdownView import MarkdownViewWindow
 import toml
 import subprocess
 from html2phpbbcode.parser import HTML2PHPBBCode
-from helpers import exc
+from collections import defaultdict
 
 VERSION = "v0.0.3 Alpha 内部测试版"
 
@@ -43,7 +43,6 @@ class OKPMainWIndow(QMainWindow, Ui_MainWindow):
             self.warning("找不到 OKP.Core.exe，请将本程序复制到 OKP.Core.exe 同目录下。")
             sys.exit(1)
     
-    @exc
     def setupUi2(self):
         # set title
         self.setWindowTitle("OKPGUI by AmusementClub " + VERSION)
@@ -95,23 +94,32 @@ p, li {{ white-space: pre-wrap; }}
         self.buttonNyaaLogin.clicked.connect(self.loginWebsite("https://nyaa.si/login"))
         self.buttonAcgripLogin.clicked.connect(self.loginWebsite("https://acg.rip/users/sign_in"))
         self.buttonBangumiLogin.clicked.connect(self.loginWebsite("https://bangumi.moe/"))
-        self.buttonAcgnxasiaLogin.clicked.connect(self.loginWebsite("https://share.acgnx.se/user.php?o=login"))
-        self.buttonAcgnxglobalLogin.clicked.connect(self.loginWebsite("https://www.acgnx.se/user.php?o=login"))
+
+        self.textNyaaName.setDisabled(True)
+
 
         self.buttonSaveProfile.clicked.connect(self.saveProfile)
         self.buttonDeleteProfile.clicked.connect(self.deleteProfile)
 
+        self.menuProxyType.currentTextChanged.connect(self.onProxySelection)
+        self.onProxySelection()
+
         # publish button
         self.buttonOKP.clicked.connect(self.publishRun)
+
 
     
     def selectTorrentFile(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"Torrent file v1 (*.torrent)")[0]
         self.textTorrentPath.setText(fname)
 
-    def initializeConfig(self):
-        with open(TEMPLATE_CONFIG, "w", encoding='utf-8') as f:
-            f.write('''
+
+
+    def loadConfig(self):
+        path = Path(TEMPLATE_CONFIG)
+        if not path.exists():
+            with open(TEMPLATE_CONFIG, "w", encoding='utf-8') as f:
+                f.write('''
 lastUsed: 新模板
 template:
   新模板:
@@ -128,13 +136,7 @@ template:
     tags: "Anime"
     titlePattern: ""
     title: ""
-            ''')
-
-
-    def loadConfig(self):
-        path = Path(TEMPLATE_CONFIG)
-        if not path.exists():
-            self.initializeConfig()
+                ''')
 
         with open(path, "r", encoding="utf-8") as f:
             self.conf = yaml.safe_load(f)
@@ -191,7 +193,8 @@ template:
         elif selected not in self.conf['template']:
             return
         else:
-            conf = self.conf['template'][selected]
+
+            conf = defaultdict(str, self.conf['template'][selected])
             self.textTemplateName.setText(selected)
             self.textEpPattern.setText(conf['epPattern'])
             self.textTitlePattern.setText(conf['titlePattern'])
@@ -202,13 +205,15 @@ template:
             self.reloadMenuSelectCookies()
             self.textTags.setText(conf['tags'])
             self.textTitle.setText(conf['title'])
+            self.conf['template'][selected] = dict(conf)
 
+            conf = defaultdict(bool, self.conf['template'][selected])
             self.checkboxDmhyPublish.setChecked(conf['checkDmhy'])
             self.checkboxNyaaPublish.setChecked(conf['checkNyaa'])
             self.checkboxAcgripPublish.setChecked(conf['checkAcgrip'])
             self.checkboxAcgnxasiaPublish.setChecked(conf['checkAcgnxasia'])
             self.checkboxAcgnxglobalPublish.setChecked(conf['checkAcgnxglobal'])
-
+            self.conf['template'][selected] = dict(conf)
 
     def setTitleText(self):
         # set title based on patterns, set to "" when no pattern set
@@ -306,12 +311,12 @@ lastUsed: 新身份
 profiles:
   新身份:
     cookies: 
-    dmhyName: 新身份
-    nyaaName: 新身份
-    acgripName: 新身份
-    bangumiName: 新身份
-    acgnxasiaName: 新身份
-    acgnxglobalName: 新身份
+    dmhyName: 
+    nyaaName: 
+    acgripName: 
+    bangumiName: 
+    acgnxasiaName: 
+    acgnxglobalName: 
 '''
                 )
         with open(path, "r", encoding="utf-8") as f:
@@ -343,20 +348,28 @@ profiles:
             self.textAcgripName.clear()
             self.textBangumiName.clear()
             self.textAcgnxasiaName.clear()
+            self.textAcgnxasiaToken.clear()
             self.textAcgnxglobalName.clear()
+            self.textAcgnxglobalToken.clear()
             self.textCookies.clear()
         elif selected not in self.profile["profiles"]:
             return
         else:
-            prof = self.profile["profiles"][selected]
+            prof = defaultdict(str, self.profile["profiles"][selected])
+            
             self.textProfileName.setText(selected)
             self.textDmhyName.setText(prof['dmhyName'])
             self.textNyaaName.setText(prof['nyaaName'])
             self.textAcgripName.setText(prof['acgripName'])
             self.textBangumiName.setText(prof['bangumiName'])
             self.textAcgnxasiaName.setText(prof['acgnxasiaName'])
+            self.textAcgnxasiaToken.setText(prof['acgnxasiaToken'])
             self.textAcgnxglobalName.setText(prof['acgnxglobalName'])
+            self.textAcgnxglobalToken.setText(prof['acgnxglobalToken'])
             self.textCookies.setText(prof['cookies'])
+
+            self.profile["profiles"][selected] = dict(prof)
+
 
     def saveProfile(self):
         profileName = self.textProfileName.text()
@@ -414,6 +427,20 @@ profiles:
         self.menuSelectCookies.addItems(self.profile['profiles'].keys())
         try: self.menuSelectCookies.setCurrentText(self.conf['template'][self.menuTemplateSelection.currentText()]['profile'])
         except: pass
+
+    def onProxySelection(self):
+        selected = self.menuProxyType.currentText()
+        if selected == "不使用代理":
+            self.textProxyHost.setDisabled(True)
+            self.textProxyPort.setDisabled(True)
+            return
+        if selected == "HTTP":
+            self.textProxyHost.setEnabled(True)
+            self.textProxyPort.setEnabled(True)
+            return
+        
+    def saveAPIToken(self):
+        pass
 
     def publishRun(self):
         # Sanity check
