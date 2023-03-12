@@ -485,7 +485,7 @@ profiles:
         if n != 0:
             self.textCookies.setText(new_string)
         else:
-            if cookies[-1] != "\n": cookies += "\n"
+            if cookies and cookies[-1] != "\n": cookies += "\n"
             self.textCookies.setText(
                 cookies + f"https://share.acgnx.se\ttoken={self.textAcgnxasiaToken.text()}\n"
             )
@@ -499,7 +499,7 @@ profiles:
         if n != 0:
             self.textCookies.setText(new_string)
         else:
-            if cookies[-1] != "\n": cookies += "\n"
+            if cookies and cookies[-1] != "\n": cookies += "\n"
             self.textCookies.setText(
                 cookies + f"https://www.acgnx.se\ttoken={self.textAcgnxglobalToken.text()}\n"
             )
