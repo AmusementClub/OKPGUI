@@ -16,7 +16,7 @@ import subprocess
 from html2phpbbcode.parser import HTML2PHPBBCode
 from collections import defaultdict
 
-VERSION = "v0.0.3 Alpha 内部测试版"
+VERSION = "v0.0.4 Alpha 内部测试版"
 
 CATEGORY = {
     'Anime': ['Default', 'MV', 'TV', 'Movie', 'Collection', 'Raw', 'English'],
@@ -105,6 +105,7 @@ p, li {{ white-space: pre-wrap; }}
         self.onProxySelection()
 
         self.buttonSaveAPI.clicked.connect(self.saveAPIToken)
+        self.buttonSaveProxy.clicked.connect(self.saveProfile)
 
         # publish button
         self.buttonOKP.clicked.connect(self.publishRun)
@@ -314,6 +315,7 @@ template:
                 f.write(
 '''
 lastUsed: 新身份
+proxy:
 profiles:
   新身份:
     cookies: 
@@ -358,9 +360,15 @@ profiles:
             self.textAcgnxglobalName.clear()
             self.textAcgnxglobalToken.clear()
             self.textCookies.clear()
+            self.menuProxyType.setCurrentIndex(0)
+            self.textProxyHost.clear()
+
         elif selected not in self.profile["profiles"]:
             return
         else:
+            if 'proxyType' in self.profile: self.menuProxyType.setCurrentText(self.profile['proxyType'])
+            if 'proxy' in self.profile: self.textProxyHost.setText(self.profile['proxy'])
+
             prof = defaultdict(str, self.profile["profiles"][selected])
             
             self.textProfileName.setText(selected)
@@ -371,6 +379,7 @@ profiles:
             self.textAcgnxasiaName.setText(prof['acgnxasiaName'])
             self.textAcgnxglobalName.setText(prof['acgnxglobalName'])
             self.textCookies.setText(prof['cookies'])
+            
 
             res = re.search(r'https:\/\/share.acgnx.se\ttoken=(?P<token>.*)(\n|$)', prof['cookies'])
             if res:
@@ -398,6 +407,8 @@ profiles:
                 return
             
         self.profile["lastUsed"] = self.textProfileName.text()
+        self.profile["proxy"] = self.textProxyHost.text()
+        self.profile["proxyType"] = self.menuProxyType.currentText()
         self.profile["profiles"][self.textProfileName.text()] = {
             'cookies': self.textCookies.toPlainText(),
             'dmhyName': self.textDmhyName.text(),
@@ -447,11 +458,9 @@ profiles:
         selected = self.menuProxyType.currentText()
         if selected == "不使用代理":
             self.textProxyHost.setDisabled(True)
-            self.textProxyPort.setDisabled(True)
             return
         if selected == "HTTP":
             self.textProxyHost.setEnabled(True)
-            self.textProxyPort.setEnabled(True)
             return
         
     def saveAPIToken(self):
@@ -490,7 +499,7 @@ profiles:
                     )
 
         self.saveProfile()
-        
+
 
     def publishRun(self):
         # Sanity check
@@ -521,7 +530,8 @@ profiles:
                 {
                 'site': 'dmhy',
                 'name': self.textDmhyName.text(),
-                'content': html
+                'content': html,
+                'proxy': self.textProxyHost.text(),
                 }
             )
         
@@ -530,7 +540,8 @@ profiles:
                 {
                 'site': 'nyaa',
                 'name': self.textNyaaName.text(),
-                'content': md
+                'content': md,
+                'proxy': self.textProxyHost.text(),
                 }
             )
 
@@ -539,7 +550,8 @@ profiles:
                 {
                 'site': 'acgrip',
                 'name': self.textAcgripName.text(),
-                'content': bbcode
+                'content': bbcode,
+                'proxy': self.textProxyHost.text(),
                 }
             )
 
@@ -548,7 +560,8 @@ profiles:
                 {
                 'site': 'bangumi',
                 'name': self.textBangumiName.text(),
-                'content': html
+                'content': html,
+                'proxy': self.textProxyHost.text(),
                 }
             )
 
@@ -557,7 +570,8 @@ profiles:
                 {
                 'site': 'acgnx_asia',
                 'name': self.textAcgnxasiaName.text(),
-                'content': html
+                'content': html,
+                'proxy': self.textProxyHost.text(),
                 }
             )
 
@@ -566,7 +580,8 @@ profiles:
                 {
                 'site': 'acgnx_global',
                 'name': self.textAcgnxglobalName.text(),
-                'content': html
+                'content': html,
+                'proxy': self.textProxyHost.text(),
                 }
             )
 

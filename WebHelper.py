@@ -4,9 +4,11 @@ from PyQt6.QtCore import QUrl, QByteArray, QSize
 from PyQt6.QtWebEngineWidgets import QWebEngineView
 from PyQt6.QtWebEngineCore import QWebEngineProfile
 from PyQt6.QtWidgets import QApplication, QTextEdit, QPushButton, QToolBar, QMainWindow, QDialog, QWidget, QVBoxLayout
-from PyQt6.QtNetwork import QNetworkCookie
+from PyQt6.QtNetwork import QNetworkCookie, QNetworkProxy
 from PyQt6.QtGui import QAction
 from helpers import exc
+from urllib import parse
+import traceback
 
 
 def bytestostr(data):
@@ -57,10 +59,9 @@ class WebEngineView(QWidget):
         QWebEngineProfile.defaultProfile().cookieStore().cookieAdded.connect(self.onCookieAdd)
         self.resize(1920, 600)
         self.parentWindow = parentWindow
-
         self.browser = QWebEngineView()
         self.browser.loadFinished.connect(self.onLoadFinished)
-        self.browser.load(url)
+        
 
         vbox = QVBoxLayout(self)
 
@@ -78,11 +79,18 @@ class WebEngineView(QWidget):
         toolbar.addAction(refreshButton)
         toolbar.addAction(self.saveButton)
 
-
         self.cookies = []
         vbox.addWidget(toolbar)
         vbox.addWidget(self.browser)
         self.setLayout(vbox)
+
+
+        parsed = parse.urlparse(self.parentWindow.profile['proxy'])
+        self.proxy = QNetworkProxy(QNetworkProxy.ProxyType.HttpProxy, hostName=parsed.hostname, port=parsed.port)
+        QNetworkProxy.setApplicationProxy(self.proxy)
+
+        
+        self.browser.load(url)
 
     @exc
     def closeEvent(self, event):

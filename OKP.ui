@@ -63,7 +63,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="HomeTab">
        <property name="sizePolicy">
@@ -864,32 +864,18 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
         <item row="3" column="1">
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>必须保存身份后，改动才会生效！</string>
+           <string>本页中任何修改都必须保存身份才会生效！</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="2" colspan="2">
-         <layout class="QFormLayout" name="formLayout_5">
-          <item row="2" column="0">
-           <widget class="QLabel" name="portLabel_2">
-            <property name="text">
-             <string>Port</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="textProxyPort"/>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="buttonApplyProxy">
-            <property name="text">
-             <string>应用设置</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
+        <item row="3" column="3">
+         <widget class="QPushButton" name="buttonSaveAPI">
+          <property name="text">
+           <string>保存 API</string>
+          </property>
+         </widget>
         </item>
-        <item row="5" column="0" colspan="2">
+        <item row="5" column="0" colspan="4">
          <layout class="QFormLayout" name="formLayout_4">
           <item row="0" column="0">
            <widget class="QLabel" name="Label">
@@ -920,16 +906,20 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="textProxyHost"/>
+           <widget class="QLineEdit" name="textProxyHost">
+            <property name="placeholderText">
+             <string>http://127.0.0.1:7890</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QPushButton" name="buttonSaveProxy">
+            <property name="text">
+             <string>保存身份</string>
+            </property>
+           </widget>
           </item>
          </layout>
-        </item>
-        <item row="3" column="3">
-         <widget class="QPushButton" name="buttonSaveAPI">
-          <property name="text">
-           <string>保存 API</string>
-          </property>
-         </widget>
         </item>
        </layout>
       </widget>
