@@ -69,13 +69,16 @@
 
 例如说我们有一个种子文件，其名称为
 
-```[SweetSub] Oniichan ha Oshimai! - 01 [WebRip][1080P][AVC 8bit][CHS].mp4.torrent```
+```
+[SweetSub] Oniichan ha Oshimai! - 01 [WebRip][1080P][AVC 8bit][CHS].mp4.torrent
+```
 
 然后我们还有其不同分辨率，不同集数的版本，例如说：
 
-```[SweetSub] Oniichan ha Oshimai! - 01 [WebRip][720P][AVC 8bit][CHS].mp4.torrent```
-
-```[SweetSub] Oniichan ha Oshimai! - 02 [WebRip][1080P][AVC 8bit][CHS].mp4.torrent```
+```
+[SweetSub] Oniichan ha Oshimai! - 01 [WebRip][720P][AVC 8bit][CHS].mp4.torrent
+[SweetSub] Oniichan ha Oshimai! - 02 [WebRip][1080P][AVC 8bit][CHS].mp4.torrent
+```
 
 我们不想重复地手动更改发布标题，这样非常麻烦。标题匹配功能可以在种子文件中寻找需要的信息并填写到标题中。
 
@@ -84,23 +87,31 @@
 在集数匹配一栏中，把文件名中的重要信息用 `<>` 标签替换，并在其中填入字符来命名，例如说
 
 集数匹配：
-```[SweetSub] Oniichan ha Oshimai! - <ep> [WebRip][<res>P][AVC 8bit]```
+```
+[SweetSub] Oniichan ha Oshimai! - <ep> [WebRip][<res>P][AVC 8bit]
+```
 
 我们再在标题匹配中以 `<>` 标签替换相应的值
 
 标题匹配：
-```[SweetSub][不当哥哥了！][Oniichan ha Oshimai!][<ep>][WebRip][<res>P][AVC 8bit][简日双语][无修版]```
+```
+[SweetSub][不当哥哥了！][Oniichan ha Oshimai!][<ep>][WebRip][<res>P][AVC 8bit][简日双语][无修版]
+```
 
 如果我们此时添加一个种子文件
 
 例如 
-```[SweetSub] Oniichan ha Oshimai! - 01 [WebRip][720P][AVC 8bit][CHS].mp4.torrent```
+```
+[SweetSub] Oniichan ha Oshimai! - 01 [WebRip][720P][AVC 8bit][CHS].mp4.torrent
+```
 
 程序会根据种子文件的`文件名`和`集数匹配`中的字符串来确定 `<ep>` 的值为 `01`，`<res>` 的值为 `720`
 
-这些值会被自动代入到`标题匹配`的模板中，程序会自动生成发布标题
+这些值会被自动代入到`标题匹配`的模板中，程序会自动生成发布标题：
 
-```[SweetSub][不当哥哥了！][Oniichan ha Oshimai!][01][WebRip][720P][AVC 8bit][简日双语][无修版]```
+```
+[SweetSub][不当哥哥了！][Oniichan ha Oshimai!][01][WebRip][720P][AVC 8bit][简日双语][无修版]
+```
 
 注意：
 1. 虽然例子中只用了`<ep>`和`<res>`，但你可以使用任意数量的`<>`标签，里面可以填写任意英文单词。
