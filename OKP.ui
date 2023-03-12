@@ -753,7 +753,7 @@ color:rgb(0, 0, 255)</string>
           <item row="6" column="1">
            <widget class="QLineEdit" name="textAcgnxasiaToken">
             <property name="placeholderText">
-             <string>填写 acgnx API Token 后点击下方「保存 API」按钮</string>
+             <string>填写 acgnx asia API Token</string>
             </property>
            </widget>
           </item>
@@ -774,7 +774,7 @@ color:rgb(0, 0, 255)</string>
           <item row="9" column="1">
            <widget class="QLineEdit" name="textAcgnxglobalToken">
             <property name="placeholderText">
-             <string>填写 acgnx API Token 后点击下方「保存 API」按钮</string>
+             <string>填写 acgnx global API Token</string>
             </property>
            </widget>
           </item>

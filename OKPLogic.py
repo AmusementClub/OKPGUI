@@ -87,7 +87,8 @@ p, li {{ white-space: pre-wrap; }}
         self.buttonPreviewMarkdown.clicked.connect(self.previewMarkdown)
         #self.textDescription.setMarkdown(self.textDescription.toPlainText())
 
-        
+        self.textEpPattern.textEdited.connect(self.setTitleText)
+        self.textTitlePattern.textEdited.connect(self.setTitleText)
 
         # tab 2 login
         self.buttonDmhyLogin.clicked.connect(self.loginWebsite("https://share.dmhy.org/user/login"))
@@ -104,8 +105,12 @@ p, li {{ white-space: pre-wrap; }}
         self.menuProxyType.currentTextChanged.connect(self.onProxySelection)
         self.onProxySelection()
 
-        self.buttonSaveAPI.clicked.connect(self.saveAPIToken)
+        #self.buttonSaveAPI.clicked.connect(self.saveAPIToken)
         self.buttonSaveProxy.clicked.connect(self.saveProfile)
+
+        self.textAcgnxasiaToken.textEdited.connect(self.applyAcgnxasiaAPIToken)
+        self.textAcgnxglobalToken.textEdited.connect(self.applyAcgnxglobalAPIToken)
+        self.textCookies.textChanged.connect(self.onCookiesChange)
 
         # publish button
         self.buttonOKP.clicked.connect(self.publishRun)
@@ -463,42 +468,43 @@ profiles:
             self.textProxyHost.setEnabled(True)
             return
         
-    def saveAPIToken(self):
-        if self.textAcgnxasiaName.text():
-            if not self.textAcgnxasiaToken.text():
-                self.warning("请填写 acgnx asia API Token。")
-                return
-            else:
-                if re.search(r"https:\/\/share.acgnx.se\ttoken=", self.textCookies.toPlainText()):
-                    self.textCookies.setText(
-                        re.sub(
-                        r"https:\/\/share.acgnx.se\ttoken=.*(\n|$)", 
-                        f"https://share.acgnx.se\ttoken={self.textAcgnxasiaToken.text()}\n", 
-                        self.textCookies.toPlainText())
-                        )
-                else:
-                    self.textCookies.setText(
-                        self.textCookies.toPlainText() + f"https://share.acgnx.se\ttoken={self.textAcgnxasiaToken.text()}\n"
-                    )
-        
-        if self.textAcgnxglobalName.text():
-            if not self.textAcgnxglobalToken.text():
-                self.warning("请填写 acgnx global API Token。")
-                return
-            else:
-                if re.search(r"https:\/\/www.acgnx.se\ttoken", self.textCookies.toPlainText()):
-                    self.textCookies.setText(
-                        re.sub(
-                        r"https:\/\/www.acgnx.se\ttoken.*(\n|$)", 
-                        f"https://www.acgnx.se\ttoken={self.textAcgnxglobalToken.text()}\n", 
-                        self.textCookies.toPlainText())
-                        )
-                else:
-                    self.textCookies.setText(
-                        self.textCookies.toPlainText() + f"https://www.acgnx.se\ttoken={self.textAcgnxglobalToken.text()}\n"
-                    )
+    def applyAcgnxasiaAPIToken(self):
 
-        self.saveProfile()
+        new_string, n = re.subn(
+            r"https:\/\/share.acgnx.se\ttoken=.*(\n|$)", 
+            f"https://share.acgnx.se\ttoken={self.textAcgnxasiaToken.text()}\n", 
+            self.textCookies.toPlainText())
+        if n != 0:
+            self.textCookies.setText(new_string)
+        else:
+            self.textCookies.setText(
+                self.textCookies.toPlainText() + f"https://share.acgnx.se\ttoken={self.textAcgnxasiaToken.text()}\n"
+            )
+
+    def applyAcgnxglobalAPIToken(self):
+        new_string, n = re.subn(
+            r"https:\/\/www.acgnx.se\ttoken=.*(\n|$)", 
+            f"https://www.acgnx.se\ttoken={self.textAcgnxglobalToken.text()}\n", 
+            self.textCookies.toPlainText())
+        if n != 0:
+            self.textCookies.setText(new_string)
+        else:
+            self.textCookies.setText(
+                self.textCookies.toPlainText() + f"https://www.acgnx.se\ttoken={self.textAcgnxglobalToken.text()}\n"
+            )
+
+    def onCookiesChange(self):
+        cookies = self.textCookies.toPlainText()
+        m = re.search(r"https:\/\/share.acgnx.se\ttoken=(?P<token>.*)(\n|$)", cookies)
+        if m:
+            self.textAcgnxasiaToken.setText(m['token'])
+
+        m = re.search(r"https:\/\/www.acgnx.se\ttoken=(?P<token>.*)(\n|$)", cookies)
+        if m:
+            self.textAcgnxglobalToken.setText(m['token'])
+
+        
+
 
 
     def publishRun(self):
