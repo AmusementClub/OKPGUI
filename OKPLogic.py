@@ -76,6 +76,8 @@ p, li {{ white-space: pre-wrap; }}
         self.reloadTemplate()
         self.updateTemplate()
 
+        self.loadProxy()
+
         # Save / Delete template
         self.buttonSaveTemplate.clicked.connect(self.saveTemplate)
         self.buttonDeleteTemplate.clicked.connect(self.deleteTemplate)
@@ -105,7 +107,7 @@ p, li {{ white-space: pre-wrap; }}
         self.menuProxyType.currentTextChanged.connect(self.onProxySelection)
         self.onProxySelection()
 
-        self.buttonSaveProxy.clicked.connect(self.saveProfile)
+        self.buttonSaveProxy.clicked.connect(self.saveProxy)
 
         self.textAcgnxasiaToken.textEdited.connect(self.applyAcgnxasiaAPIToken)
         self.textAcgnxglobalToken.textEdited.connect(self.applyAcgnxglobalAPIToken)
@@ -128,6 +130,8 @@ p, li {{ white-space: pre-wrap; }}
             with open(TEMPLATE_CONFIG, "w", encoding='utf-8') as f:
                 f.write('''
 lastUsed: 新模板
+proxy: http://127.0.0.1:7890
+proxyType: 不使用代理
 template:
   新模板:
     about: 
@@ -147,7 +151,18 @@ template:
 
         with open(path, "r", encoding="utf-8") as f:
             self.conf = yaml.safe_load(f)
-            
+    
+    def loadProxy(self):
+        conf = defaultdict(str, self.conf)
+        self.menuProxyType.setCurrentText(conf['proxyType'])
+        self.textProxyHost.setText(conf['proxy'])
+
+    def saveProxy(self):
+        self.conf['proxyType'] = self.menuProxyType.currentText()
+        self.conf['proxy'] = self.textProxyHost.text()
+        with open(TEMPLATE_CONFIG, "w", encoding='utf-8') as file:
+            yaml.safe_dump(self.conf, file, encoding='utf-8',allow_unicode=True)
+
 
     def loginWebsite(self, url):
         def login():
@@ -187,9 +202,6 @@ template:
     def updateTemplate(self):
         selected = self.menuTemplateSelection.currentText()
         if selected == "创建新模板":
-            # warning = WarningDialog()
-            # warning.show()
-            # warning.exec()
             self.textTemplateName.setText("新模板")
             self.textEpPattern.clear()
             self.textTitlePattern.clear()
@@ -319,7 +331,6 @@ template:
                 f.write(
 '''
 lastUsed: 新身份
-proxy: http://127.0.0.1:7890
 profiles:
   新身份:
     cookies: 
@@ -364,14 +375,14 @@ profiles:
             self.textAcgnxglobalName.clear()
             self.textAcgnxglobalToken.clear()
             self.textCookies.clear()
-            self.menuProxyType.setCurrentIndex(0)
-            self.textProxyHost.setText("http://127.0.0.1:7890")
+            # self.menuProxyType.setCurrentIndex(0)
+            # self.textProxyHost.setText("http://127.0.0.1:7890")
 
         elif selected not in self.profile["profiles"]:
             return
         else:
-            if 'proxyType' in self.profile: self.menuProxyType.setCurrentText(self.profile['proxyType'])
-            if 'proxy' in self.profile: self.textProxyHost.setText(self.profile['proxy'])
+            # if 'proxyType' in self.profile: self.menuProxyType.setCurrentText(self.profile['proxyType'])
+            # if 'proxy' in self.profile: self.textProxyHost.setText(self.profile['proxy'])
 
             prof = defaultdict(str, self.profile["profiles"][selected])
             
@@ -411,8 +422,6 @@ profiles:
                 return
             
         self.profile["lastUsed"] = self.textProfileName.text()
-        self.profile["proxy"] = self.textProxyHost.text()
-        self.profile["proxyType"] = self.menuProxyType.currentText()
         self.profile["profiles"][self.textProfileName.text()] = {
             'cookies': self.textCookies.toPlainText(),
             'dmhyName': self.textDmhyName.text(),
@@ -468,28 +477,31 @@ profiles:
             return
         
     def applyAcgnxasiaAPIToken(self):
-
+        cookies = self.textCookies.toPlainText()
         new_string, n = re.subn(
             r"https:\/\/share.acgnx.se\ttoken=.*(\n|$)", 
             f"https://share.acgnx.se\ttoken={self.textAcgnxasiaToken.text()}\n", 
-            self.textCookies.toPlainText())
+            cookies)
         if n != 0:
             self.textCookies.setText(new_string)
         else:
+            if cookies[-1] != "\n": cookies += "\n"
             self.textCookies.setText(
-                self.textCookies.toPlainText() + f"https://share.acgnx.se\ttoken={self.textAcgnxasiaToken.text()}\n"
+                cookies + f"https://share.acgnx.se\ttoken={self.textAcgnxasiaToken.text()}\n"
             )
 
     def applyAcgnxglobalAPIToken(self):
+        cookies = self.textCookies.toPlainText()
         new_string, n = re.subn(
             r"https:\/\/www.acgnx.se\ttoken=.*(\n|$)", 
             f"https://www.acgnx.se\ttoken={self.textAcgnxglobalToken.text()}\n", 
-            self.textCookies.toPlainText())
+            cookies)
         if n != 0:
             self.textCookies.setText(new_string)
         else:
+            if cookies[-1] != "\n": cookies += "\n"
             self.textCookies.setText(
-                self.textCookies.toPlainText() + f"https://www.acgnx.se\ttoken={self.textAcgnxglobalToken.text()}\n"
+                cookies + f"https://www.acgnx.se\ttoken={self.textAcgnxglobalToken.text()}\n"
             )
 
     def onCookiesChange(self):
@@ -501,8 +513,6 @@ profiles:
         m = re.search(r"https:\/\/www.acgnx.se\ttoken=(?P<token>.*)(\n|$)", cookies)
         if m:
             self.textAcgnxglobalToken.setText(m['token'])
-
-        
 
 
 
@@ -528,7 +538,7 @@ profiles:
         html = markdown.markdown(md)
         parser = HTML2PHPBBCode()
         bbcode = parser.feed(html)
-        
+        proxy = self.conf["proxy"]
 
         if self.checkboxDmhyPublish.isChecked():
             intro_templates.append(
@@ -536,7 +546,6 @@ profiles:
                 'site': 'dmhy',
                 'name': self.textDmhyName.text(),
                 'content': html,
-                'proxy': self.textProxyHost.text(),
                 }
             )
         
@@ -546,7 +555,6 @@ profiles:
                 'site': 'nyaa',
                 'name': self.textNyaaName.text(),
                 'content': md,
-                'proxy': self.textProxyHost.text(),
                 }
             )
 
@@ -556,7 +564,6 @@ profiles:
                 'site': 'acgrip',
                 'name': self.textAcgripName.text(),
                 'content': bbcode,
-                'proxy': self.textProxyHost.text(),
                 }
             )
 
@@ -566,7 +573,6 @@ profiles:
                 'site': 'bangumi',
                 'name': self.textBangumiName.text(),
                 'content': html,
-                'proxy': self.textProxyHost.text(),
                 }
             )
 
@@ -576,7 +582,6 @@ profiles:
                 'site': 'acgnx_asia',
                 'name': self.textAcgnxasiaName.text(),
                 'content': html,
-                'proxy': self.textProxyHost.text(),
                 }
             )
 
@@ -586,9 +591,12 @@ profiles:
                 'site': 'acgnx_global',
                 'name': self.textAcgnxglobalName.text(),
                 'content': html,
-                'proxy': self.textProxyHost.text(),
                 }
             )
+
+        if self.conf['proxyType'] == "HTTP":
+            for d in intro_templates:
+                d['proxy'] = proxy
 
         template_conf = {
             'display_name': self.textTitle.text(),
