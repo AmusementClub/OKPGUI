@@ -69,6 +69,8 @@ p, li {{ white-space: pre-wrap; }}
         self.HomeTab.dragEnterEvent = self.onDragEnterEvent
         self.HomeTab.dropEvent = self.onDropEvent
         self.HomeTab.dragLeaveEvent = self.onDragLeaveEvent
+        self.textTorrentPath.textChanged.connect(self.setTitleText)
+
 
         # Select template
         self.reloadProfile()
@@ -127,7 +129,6 @@ p, li {{ white-space: pre-wrap; }}
         self.textTorrentPath.setPlaceholderText("可直接 .torrent 文件拖放到此处")
         files = [u.toLocalFile() for u in event.mimeData().urls()]
         self.textTorrentPath.setText(files[0])
-        self.setTitleText()
 
     def onDragLeaveEvent(self, evet):
         self.textTorrentPath.setPlaceholderText("可直接 .torrent 文件拖放到此处")
