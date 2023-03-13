@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>840</height>
+    <height>1139</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -81,42 +81,6 @@
         <string>主页</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="1" column="0" colspan="2">
-         <widget class="QLabel" name="label">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>选择模板</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="7" colspan="2">
-         <widget class="QPushButton" name="buttonDeleteTemplate">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="autoFillBackground">
-           <bool>false</bool>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">color: rgb(255, 0, 30);
-font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
-          </property>
-          <property name="text">
-           <string>删除模板</string>
-          </property>
-          <property name="flat">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
         <item row="7" column="0" colspan="9">
          <layout class="QFormLayout" name="formLayout_2">
           <property name="fieldGrowthPolicy">
@@ -159,7 +123,7 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLabel" name="statusDmhy">
+           <widget class="QCheckBox" name="checkboxBangumiPublish">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -167,7 +131,7 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
              </sizepolicy>
             </property>
             <property name="text">
-             <string/>
+             <string>bangumi</string>
             </property>
            </widget>
           </item>
@@ -184,7 +148,7 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
+          <item row="2" column="1">
            <widget class="QCheckBox" name="checkboxAcgripPublish">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -197,20 +161,7 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
-           <widget class="QCheckBox" name="checkboxBangumiPublish">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string>bangumi</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
+          <item row="3" column="0">
            <widget class="QCheckBox" name="checkboxAcgnxasiaPublish">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -223,7 +174,7 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="0">
+          <item row="3" column="1">
            <widget class="QCheckBox" name="checkboxAcgnxglobalPublish">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -236,83 +187,41 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
             </property>
            </widget>
           </item>
-          <item row="2" column="1">
-           <widget class="QLabel" name="statusNyaa">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="statusAcgrip">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLabel" name="statusBangumi">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QLabel" name="statusAcgnxasia">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
-           <widget class="QLabel" name="statusAcgnxGlobal">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
          </layout>
         </item>
-        <item row="0" column="2" colspan="6">
-         <widget class="QLineEdit" name="textTorrentPath">
+        <item row="2" column="7" colspan="2">
+         <widget class="QPushButton" name="buttonDeleteTemplate">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="placeholderText">
-           <string>可直接 .torrent 文件拖放到此处</string>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 0, 30);
+font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
+          </property>
+          <property name="text">
+           <string>删除模板</string>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QLabel" name="label">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>选择模板</string>
           </property>
          </widget>
         </item>
@@ -329,21 +238,19 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
           </property>
          </widget>
         </item>
-        <item row="8" column="0" colspan="9">
-         <widget class="QPushButton" name="buttonOKP">
+        <item row="0" column="2" colspan="6">
+         <widget class="QLineEdit" name="textTorrentPath">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="font">
-           <font>
-            <pointsize>20</pointsize>
-           </font>
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
-          <property name="text">
-           <string>One Key Publish!</string>
+          <property name="placeholderText">
+           <string>可直接 .torrent 文件拖放到此处</string>
           </property>
          </widget>
         </item>
@@ -372,6 +279,24 @@ color:rgb(0, 0, 255)</string>
           </property>
          </widget>
         </item>
+        <item row="9" column="0" colspan="9">
+         <widget class="QPushButton" name="buttonOKP">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>20</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>One Key Publish!</string>
+          </property>
+         </widget>
+        </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_9">
           <property name="sizePolicy">
@@ -395,8 +320,8 @@ color:rgb(0, 0, 255)</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="8">
-         <widget class="QPushButton" name="buttonBrowse">
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="label_3">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -404,7 +329,7 @@ color:rgb(0, 0, 255)</string>
            </sizepolicy>
           </property>
           <property name="text">
-           <string>浏览</string>
+           <string>种子文件</string>
           </property>
          </widget>
         </item>
@@ -415,6 +340,19 @@ color:rgb(0, 0, 255)</string>
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="8">
+         <widget class="QPushButton" name="buttonBrowse">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>浏览</string>
           </property>
          </widget>
         </item>
@@ -431,8 +369,8 @@ color:rgb(0, 0, 255)</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0" colspan="2">
-         <widget class="QLabel" name="label_3">
+        <item row="4" column="6" colspan="3">
+         <widget class="QPushButton" name="buttonPreviewMarkdown">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -440,7 +378,7 @@ color:rgb(0, 0, 255)</string>
            </sizepolicy>
           </property>
           <property name="text">
-           <string>种子文件</string>
+           <string>预览</string>
           </property>
          </widget>
         </item>
@@ -460,19 +398,6 @@ color:rgb(0, 0, 255)</string>
             <string/>
            </property>
           </item>
-         </widget>
-        </item>
-        <item row="4" column="6" colspan="3">
-         <widget class="QPushButton" name="buttonPreviewMarkdown">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>预览</string>
-          </property>
          </widget>
         </item>
         <item row="3" column="0" colspan="9">
@@ -658,6 +583,26 @@ color:rgb(0, 0, 255)</string>
           <property name="text">
            <string>请使用 Markdown 编写</string>
           </property>
+         </widget>
+        </item>
+        <item row="8" column="0" colspan="9">
+         <widget class="QTreeWidget" name="fileTree">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>300</height>
+           </size>
+          </property>
+          <column>
+           <property name="text">
+            <string>Files</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>SIze</string>
+           </property>
+          </column>
          </widget>
         </item>
        </layout>

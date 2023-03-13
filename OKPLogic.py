@@ -1,5 +1,5 @@
 from PyQt6.QtCore import QUrl, QProcess
-from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QDialog
+from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QDialog, QTreeWidgetItem
 import sys
 from OKPUI import Ui_MainWindow
 from WarningDialog import Ui_Dialog
@@ -69,7 +69,7 @@ p, li {{ white-space: pre-wrap; }}
         self.HomeTab.dragEnterEvent = self.onDragEnterEvent
         self.HomeTab.dropEvent = self.onDropEvent
         self.HomeTab.dragLeaveEvent = self.onDragLeaveEvent
-        self.textTorrentPath.textChanged.connect(self.setTitleText)
+        self.textTorrentPath.textChanged.connect(self.loadTorrent)
 
 
         # Select template
@@ -133,9 +133,63 @@ p, li {{ white-space: pre-wrap; }}
     def onDragLeaveEvent(self, evet):
         self.textTorrentPath.setPlaceholderText("可直接 .torrent 文件拖放到此处")
 
+    def loadTorrent(self):
+        self.setTitleText()
+
+        torrentPath = Path(self.textTorrentPath.text())
+        try:
+            data = tp.parse_torrent_file(torrentPath)
+        except:
+            return
+        data = data['info']['files']
+        paths = [x['path'] for x in data]
+
+        root = QTreeWidgetItem(self.fileTree)
+        root.setText(0, torrentPath.name)
+        root.setExpanded(True)
+        self.fileTree.insertTopLevelItem(0, root)
+
+        longetstPath = 0
+        for file in data:
+            if len(file['path']) > longetstPath:
+                longetstPath = len(file['path'])
+
+        # d = dict()
+        # for file in data:
+        #     for x in range(longetstPath):
+        #         d[file['path']['0']] 
+
+        def createTree(startpath, tree):
+            children = []
+            for file in data:
+                if len(file['path']) > len(startpath) and file['path'][:len(startpath)] == startpath:
+                    children.append(file)
+            print(f"{startpath=}, {children=}")
+
+            if startpath in paths:
+                item = QTreeWidgetItem(tree)
+                item.setText(0, startpath[-1])
+                item.setText(1, str(next(filter(lambda x: x['path'] == startpath, data))['length']))
+                return
+            for child in children:
+                # try:
+                startpath = child['path'][:len(startpath)+1]
+                # except:
+                #     continue
+
+                parentItem = QTreeWidgetItem(tree)
+                parentItem.setText(0, startpath[-1])
+                createTree(startpath,parentItem)
+
+        createTree([], root)
+
+
+
     def selectTorrentFile(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"Torrent file v1 (*.torrent)")[0]
         self.textTorrentPath.setText(fname)
+
+
 
 
 
