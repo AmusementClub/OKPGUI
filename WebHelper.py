@@ -1,6 +1,6 @@
 import sys
 
-from PyQt6.QtCore import QUrl, QByteArray, QSize
+from PyQt6.QtCore import QUrl, QByteArray, QSize, Qt
 from PyQt6.QtWebEngineWidgets import QWebEngineView
 from PyQt6.QtWebEngineCore import QWebEngineProfile
 from PyQt6.QtWidgets import QApplication, QTextEdit, QPushButton, QToolBar, QMainWindow, QDialog, QWidget, QVBoxLayout
@@ -9,6 +9,7 @@ from PyQt6.QtGui import QAction
 from helpers import exc
 from urllib import parse
 import traceback
+import datetime
 
 
 def bytestostr(data):
@@ -25,30 +26,50 @@ def bytestostr(data):
 def cookiesToStr(cookie: QNetworkCookie):
     domain = cookie.domain()
     path = cookie.path()
-    #https = 'TRUE' if cookie.isSecure() else 'FALSE'
     name = bytestostr(cookie.name().data())
     value = bytestostr(cookie.value().data())
-    expires = cookie.expirationDate().toSecsSinceEpoch()
+
+    flags = []
+    flags.append(f"{name}={value}")
+    flags.append(f"domain={domain}")
+    flags.append(f"path={path}")
+
+    if cookie.isSecure(): flags.append("Secure")
+    if cookie.isHttpOnly(): flags.append("HttpOnly")
+    match cookie.sameSitePolicy():
+        case QNetworkCookie.SameSite.Default:
+            pass
+        case QNetworkCookie.SameSite.Lax:
+            flags.append("SameSite=Lax")
+        case QNetworkCookie.SameSite.Strict:
+            flags.append("SameSite=Strict")
+        case QNetworkCookie.SameSite.None_:
+            flags.append("SameSite=None")
+
+    #now2 = datetime.datetime.fromisoformat(now.toString(Qt.DateFormat.ISODate))
+    #strftime("%a, %d %b %Y %H:%M:%S %Z")
+    if not cookie.isSessionCookie():
+        time = cookie.expirationDate().toString(Qt.DateFormat.ISODate)
+        time = datetime.datetime.fromisoformat(time).strftime("%a, %d %b %Y %H:%M:%S GMT") 
+        flags.append(f"expires={time}")
+
+    flags = "; ".join(flags)
     
-    return f"https://{domain}\t{name}={value},domain={domain},path={path},expires={expires}"
+    return f"https://{domain}\t{flags}"
 
 def filterCookies(cookie: QNetworkCookie) -> bool:
     if cookie.domain() == "share.dmhy.org":
         if bytestostr(cookie.name().data()) in {"pass", "rsspass", "tid", "uname", "uid"}:
             return True
     if cookie.domain() == "nyaa.si":
-        if bytestostr(cookie.name().data()) in {"session"}:
+        if bytestostr(cookie.name().data()) == "session":
             return True
     if cookie.domain() == "acg.rip":
-        if bytestostr(cookie.name().data()) in {"remember_user_token", "_kanako_session"}:
+        if bytestostr(cookie.name().data()) == "remember_user_token":
             return True
     if cookie.domain() == "bangumi.moe":
         if bytestostr(cookie.name().data()) in {"locale", "koa:sess", "koa:sess.sig"}:
             return True
-        
-    if cookie.domain() in {".acgnx.se", "share.acgnx.se"}:
-        #if bytestostr(cookie.name().data()) in {"locale", "koa:sess", "koa:sess.sig"}:
-        return True
     return False
 
 
