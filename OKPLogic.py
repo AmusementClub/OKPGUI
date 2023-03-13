@@ -1,9 +1,8 @@
-from PyQt6.QtCore import QUrl
+from PyQt6.QtCore import QUrl, QProcess
 from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QDialog
 import sys
 from OKPUI import Ui_MainWindow
 from WarningDialog import Ui_Dialog
-import helpers
 import yaml
 from pathlib import Path
 from WebHelper import WebEngineView
@@ -15,6 +14,7 @@ import toml
 import subprocess
 from html2phpbbcode.parser import HTML2PHPBBCode
 from collections import defaultdict
+import torrent_parser as tp
 
 VERSION = "v0.0.4 Alpha 内部测试版"
 
@@ -65,10 +65,10 @@ p, li {{ white-space: pre-wrap; }}
         self.buttonBrowse.clicked.connect(self.selectTorrentFile)
         
         self.HomeTab.setAcceptDrops(True)
-       # self.textTorrentPath.setAcceptDrops(True)
-        self.HomeTab.dragEnterEvent = helpers.pathDragEnterEvent(self.textTorrentPath, "请在此释放鼠标")
-        self.HomeTab.dropEvent = helpers.pathDropEvent(self.textTorrentPath, self)
-        self.HomeTab.dragLeaveEvent = helpers.pathDragLeaveEvent(self.textTorrentPath, "可直接 .torrent 文件拖放到此处")
+        # self.textTorrentPath.setAcceptDrops(True)
+        self.HomeTab.dragEnterEvent = self.onDragEnterEvent
+        self.HomeTab.dropEvent = self.onDropEvent
+        self.HomeTab.dragLeaveEvent = self.onDragLeaveEvent
 
         # Select template
         self.reloadProfile()
@@ -116,7 +116,21 @@ p, li {{ white-space: pre-wrap; }}
         # publish button
         self.buttonOKP.clicked.connect(self.publishRun)
 
+    def onDragEnterEvent(self, event):
+        if event.mimeData().hasUrls():
+            event.accept()
+            self.textTorrentPath.setPlaceholderText("请在此释放鼠标")
+        else:
+            event.ignore()
 
+    def onDropEvent(self, event):
+        self.textTorrentPath.setPlaceholderText("可直接 .torrent 文件拖放到此处")
+        files = [u.toLocalFile() for u in event.mimeData().urls()]
+        self.textTorrentPath.setText(files[0])
+        self.setTitleText()
+
+    def onDragLeaveEvent(self, evet):
+        self.textTorrentPath.setPlaceholderText("可直接 .torrent 文件拖放到此处")
 
     def selectTorrentFile(self):
         fname = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"Torrent file v1 (*.torrent)")[0]
@@ -615,12 +629,25 @@ profiles:
         with open("cookies.txt", "w", encoding='utf-8') as f:
             f.write(self.profile['profiles'][self.menuSelectCookies.currentText()]['cookies'])
         
-        p = subprocess.Popen([
-            "OKP.Core.exe", 
-            self.textTorrentPath.text(),
-            "-s", str(Path.cwd().joinpath("template.toml")),
-            '--cookies', str(Path.cwd().joinpath("cookies.txt"))
-            ], creationflags=subprocess.CREATE_NEW_CONSOLE)
+        # p = subprocess.Popen([
+        #     "OKP.Core.exe", 
+        #     self.textTorrentPath.text(),
+        #     "-s", str(Path.cwd().joinpath("template.toml")),
+        #     '--cookies', str(Path.cwd().joinpath("cookies.txt"))
+        #     ], creationflags=subprocess.CREATE_NEW_CONSOLE)
+        
+        # self.p = QProcess()
+        # self.p.start(
+        #     "OKP.Core.exe",[
+        #     self.textTorrentPath.text(),
+        #     "-s", str(Path.cwd().joinpath("template.toml")),
+        #     '--cookies', str(Path.cwd().joinpath("cookies.txt"))
+        #     ]
+        # )
+
+        # self.p.readyReadStandardOutput.connect()
+        # self.p.readyReadStandardError.connect()
+
 
 
 

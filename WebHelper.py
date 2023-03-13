@@ -6,7 +6,6 @@ from PyQt6.QtWebEngineCore import QWebEngineProfile
 from PyQt6.QtWidgets import QApplication, QTextEdit, QPushButton, QToolBar, QMainWindow, QDialog, QWidget, QVBoxLayout
 from PyQt6.QtNetwork import QNetworkCookie, QNetworkProxy
 from PyQt6.QtGui import QAction
-from helpers import exc
 from urllib import parse
 import traceback
 import datetime
@@ -74,7 +73,7 @@ def filterCookies(cookie: QNetworkCookie) -> bool:
 
 
 class WebEngineView(QWidget):
-    @exc
+
     def __init__(self, url, parentWindow, *args, **kwargs):
         super(QWidget, self).__init__(*args, **kwargs)
         QWebEngineProfile.defaultProfile().cookieStore().cookieAdded.connect(self.onCookieAdd)
@@ -113,7 +112,7 @@ class WebEngineView(QWidget):
         
         self.browser.load(url)
 
-    @exc
+
     def closeEvent(self, event):
         self.parentWindow.addCookies("\n".join(self.cookies))
         self.parentWindow.setUserAgent(self.browser.page().profile().httpUserAgent())
