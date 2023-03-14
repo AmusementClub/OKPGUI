@@ -75,6 +75,8 @@ class MyConsole(QWidget):
         self.vbox.addWidget(self.consoleWidget)
         self.vbox.addWidget(self.publishButton)
 
+        self.setWindowTitle("OKP 运行中…")
+
         #self.reader.start('python', ['test.py'])  # start the process
 
     def onPublishButton(self):
@@ -84,7 +86,7 @@ class MyConsole(QWidget):
     def start(self, *args, **kargs):
         self.reader.start(*args, **kargs)
 
-    def onFinished(self, func:function):
+    def onFinished(self, func):
         self.reader.finished.connect(func)
     
 

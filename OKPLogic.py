@@ -15,8 +15,9 @@ import subprocess
 from html2phpbbcode.parser import HTML2PHPBBCode
 from collections import defaultdict
 import torrent_parser as tp
+from ProcessWindow import MyConsole
 
-VERSION = "v0.0.4 Alpha 内部测试版"
+VERSION = "v0.1.0 Alpha"
 
 CATEGORY = {
     'Anime': ['Default', 'MV', 'TV', 'Movie', 'Collection', 'Raw', 'English'],
@@ -191,16 +192,12 @@ p, li {{ white-space: pre-wrap; }}
                     else:
                         nodes[str(path)] = length
 
-            print(f"{nodes=}")
-            sorted_nodes = sorted(nodes, key=lambda x: len(eval(x)))
 
-            print(f"{sorted_nodes=}")
+            sorted_nodes = sorted(nodes, key=lambda x: len(eval(x)))
 
             for n in sorted_nodes:
                 if n == "[]":
                     continue
-                print(f'{eval(n)[:-1]}')
-                print(type(nodes[f'{eval(n)[:-1]}']))
                 item = QTreeWidgetItem(nodes[f'{eval(n)[:-1]}'])
                 item.setText(0, eval(n)[-1])
                 item.setText(1, sizeof_fmt(nodes[n]))
@@ -711,26 +708,34 @@ profiles:
         with open("cookies.txt", "w", encoding='utf-8') as f:
             f.write(self.profile['profiles'][self.menuSelectCookies.currentText()]['cookies'])
         
-        # p = subprocess.Popen([
-        #     "OKP.Core.exe", 
-        #     self.textTorrentPath.text(),
-        #     "-s", str(Path.cwd().joinpath("template.toml")),
-        #     '--cookies', str(Path.cwd().joinpath("cookies.txt"))
-        #     ], creationflags=subprocess.CREATE_NEW_CONSOLE)
+        self.console = MyConsole(self)
+        self.console.onFinished(self.updateCookies)
+        self.console.start("OKP.Core.exe", [
+            self.textTorrentPath.text(),
+            "-s", str(Path.cwd().joinpath("template.toml")),
+            '--cookies', str(Path.cwd().joinpath("cookies.txt"))
+        ])
+        self.console.show()
+
+
         
-        # self.p = QProcess()
-        # self.p.start(
-        #     "OKP.Core.exe",[
-        #     self.textTorrentPath.text(),
-        #     "-s", str(Path.cwd().joinpath("template.toml")),
-        #     '--cookies', str(Path.cwd().joinpath("cookies.txt"))
-        #     ]
-        # )
+        
+    def updateCookies(self, int, exitStatus):
+        if exitStatus == QProcess.ExitStatus.NormalExit:
+            try:
+                with open("cookies.txt", "r", encoding="utf-8") as f:
+                    newCookies = f.read()
 
-        # self.p.readyReadStandardOutput.connect()
-        # self.p.readyReadStandardError.connect()
+                self.profile["profiles"][self.menuSelectCookies.currentText()]["cookies"] = newCookies
 
+                with open(PROFILE_CONFIG, "w", encoding="utf-8") as file:
+                    yaml.safe_dump(self.profile, file, encoding='utf-8',allow_unicode=True)
 
+                self.reloadProfile()
+
+            except:
+                return
+            
 
 
 class WarningDialog(QDialog, Ui_Dialog):
