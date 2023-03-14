@@ -200,7 +200,11 @@ var/
 sdist/
 develop-eggs/
 .installed.cfg
-venv/
+venv/*
+!venv/Lib/
+venv/Lib/site-packages/*
+!venv/Lib/site-packages/HTMLParser.py
+!venv/Lib/site-packages/markupbase.py
 
 # Installer logs
 pip-log.txt
