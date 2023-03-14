@@ -246,6 +246,17 @@ font: 12pt &quot;Microsoft YaHei UI&quot;;</string>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
           <property name="readOnly">
            <bool>true</bool>
           </property>
@@ -426,6 +437,17 @@ color:rgb(0, 0, 255)</string>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <property name="toolTip">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;测试&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
@@ -458,6 +480,17 @@ color:rgb(0, 0, 255)</string>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
            </widget>
           </item>
           <item row="3" column="0">
@@ -481,6 +514,17 @@ color:rgb(0, 0, 255)</string>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
            </widget>
           </item>
           <item row="4" column="0">
@@ -503,6 +547,17 @@ color:rgb(0, 0, 255)</string>
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
             </property>
             <property name="placeholderText">
              <string>For dmhy.org</string>
@@ -530,6 +585,17 @@ color:rgb(0, 0, 255)</string>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
             <property name="placeholderText">
              <string>For nyaa.si</string>
             </property>
@@ -542,6 +608,17 @@ color:rgb(0, 0, 255)</string>
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
             </property>
             <property name="placeholderText">
              <string/>
@@ -593,6 +670,12 @@ color:rgb(0, 0, 255)</string>
             <height>300</height>
            </size>
           </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="headerShowSortIndicator" stdset="0">
+           <bool>true</bool>
+          </attribute>
           <column>
            <property name="text">
             <string>Files</string>
@@ -600,7 +683,7 @@ color:rgb(0, 0, 255)</string>
           </column>
           <column>
            <property name="text">
-            <string>SIze</string>
+            <string>Size</string>
            </property>
           </column>
          </widget>

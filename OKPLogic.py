@@ -1,4 +1,4 @@
-from PyQt6.QtCore import QUrl, QProcess
+from PyQt6.QtCore import QUrl, QProcess, Qt
 from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QDialog, QTreeWidgetItem
 import sys
 from OKPUI import Ui_MainWindow
@@ -94,6 +94,8 @@ p, li {{ white-space: pre-wrap; }}
         self.textEpPattern.textEdited.connect(self.setTitleText)
         self.textTitlePattern.textEdited.connect(self.setTitleText)
 
+        self.fileTree.setColumnWidth(0,450)
+
         # tab 2 login
         self.buttonDmhyLogin.clicked.connect(self.loginWebsite("https://share.dmhy.org/user/login"))
         self.buttonNyaaLogin.clicked.connect(self.loginWebsite("https://nyaa.si/login"))
@@ -134,6 +136,18 @@ p, li {{ white-space: pre-wrap; }}
         self.textTorrentPath.setPlaceholderText("可直接 .torrent 文件拖放到此处")
 
     def loadTorrent(self):
+
+        def sizeof_fmt(num, suffix="B"):
+            if num == -1:
+                return ""
+            
+            for unit in ["", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei", "Zi"]:
+                if abs(num) < 1024.0:
+                    return f"{num:3.1f} {unit}{suffix}"
+                num /= 1024.0
+            return f"{num:.1f} Yi{suffix}"
+        
+        self.fileTree.clear()
         self.setTitleText()
 
         torrentPath = Path(self.textTorrentPath.text())
@@ -141,47 +155,60 @@ p, li {{ white-space: pre-wrap; }}
             data = tp.parse_torrent_file(torrentPath)
         except:
             return
-        data = data['info']['files']
-        paths = [x['path'] for x in data]
+        
 
-        root = QTreeWidgetItem(self.fileTree)
-        root.setText(0, torrentPath.name)
-        root.setExpanded(True)
-        self.fileTree.insertTopLevelItem(0, root)
+        if 'files' not in data['info']:
+            # One file torrent
+            root = QTreeWidgetItem(self.fileTree)
+            root.setText(0, Path(data['info']['name']).stem)
+            root.setText(1, sizeof_fmt(data['info']['length']))
 
-        longetstPath = 0
-        for file in data:
-            if len(file['path']) > longetstPath:
-                longetstPath = len(file['path'])
+        else:
+            # Multi file torrent
+            data = data['info']['files']
 
-        # d = dict()
-        # for file in data:
-        #     for x in range(longetstPath):
-        #         d[file['path']['0']] 
 
-        def createTree(startpath, tree):
-            children = []
+            root = QTreeWidgetItem(self.fileTree)
+            root.setText(0, torrentPath.stem)
+            root.setExpanded(True)
+            self.fileTree.insertTopLevelItem(0, root)
+
+            d = {str(x['path']):x['length'] for x in data}
+            d["[]"] = root
+
+            longetstPath = 0
             for file in data:
-                if len(file['path']) > len(startpath) and file['path'][:len(startpath)] == startpath:
-                    children.append(file)
-            print(f"{startpath=}, {children=}")
+                if len(file['path']) > longetstPath:
+                    longetstPath = len(file['path'])
 
-            if startpath in paths:
-                item = QTreeWidgetItem(tree)
-                item.setText(0, startpath[-1])
-                item.setText(1, str(next(filter(lambda x: x['path'] == startpath, data))['length']))
-                return
-            for child in children:
-                # try:
-                startpath = child['path'][:len(startpath)+1]
-                # except:
-                #     continue
+            nodes = dict() # path: length, if length = -1 then it is a dir
 
-                parentItem = QTreeWidgetItem(tree)
-                parentItem.setText(0, startpath[-1])
-                createTree(startpath,parentItem)
+            for x in range(longetstPath + 1):
+                for path, length in d.items():
+                    path = eval(path)
+                    if len(path) > x:
+                        nodes[str(path[:x])] = -1
+                    else:
+                        nodes[str(path)] = length
 
-        createTree([], root)
+            print(f"{nodes=}")
+            sorted_nodes = sorted(nodes, key=lambda x: len(eval(x)))
+
+            print(f"{sorted_nodes=}")
+
+            for n in sorted_nodes:
+                if n == "[]":
+                    continue
+                print(f'{eval(n)[:-1]}')
+                print(type(nodes[f'{eval(n)[:-1]}']))
+                item = QTreeWidgetItem(nodes[f'{eval(n)[:-1]}'])
+                item.setText(0, eval(n)[-1])
+                item.setText(1, sizeof_fmt(nodes[n]))
+                nodes[n] = item
+
+            self.fileTree.sortByColumn(1, Qt.SortOrder.AscendingOrder)
+
+
 
 
 
