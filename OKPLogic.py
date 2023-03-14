@@ -17,7 +17,7 @@ from collections import defaultdict
 import torrent_parser as tp
 from ProcessWindow import MyConsole
 
-VERSION = "v0.1.0 Alpha"
+VERSION = "v0.1.1 Alpha"
 
 CATEGORY = {
     'Anime': ['Default', 'MV', 'TV', 'Movie', 'Collection', 'Raw', 'English'],
