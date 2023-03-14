@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(600, 1139)
+        MainWindow.resize(600, 950)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -397,7 +397,7 @@ class Ui_MainWindow(object):
         self.label_10.setObjectName("label_10")
         self.gridLayout.addWidget(self.label_10, 5, 0, 1, 1)
         self.fileTree = QtWidgets.QTreeWidget(parent=self.HomeTab)
-        self.fileTree.setMinimumSize(QtCore.QSize(0, 300))
+        self.fileTree.setMinimumSize(QtCore.QSize(0, 150))
         self.fileTree.setObjectName("fileTree")
         self.fileTree.header().setSortIndicatorShown(True)
         self.gridLayout.addWidget(self.fileTree, 8, 0, 1, 9)

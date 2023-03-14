@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>1139</height>
+    <height>950</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -667,7 +667,7 @@ color:rgb(0, 0, 255)</string>
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>300</height>
+            <height>150</height>
            </size>
           </property>
           <property name="sortingEnabled">
