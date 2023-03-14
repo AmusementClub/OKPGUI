@@ -445,7 +445,7 @@ profiles:
         self.menuProfileSelection.addItems(profileList)
         self.menuProfileSelection.addItem("创建新身份")
         self.updateProfile()
-        self.menuProfileSelection.activated.connect(self.updateProfile)
+        self.menuProfileSelection.currentTextChanged.connect(self.updateProfile)
         try:
             self.menuProfileSelection.setCurrentText(self.profile["lastUsed"])
             self.updateProfile()
@@ -611,17 +611,25 @@ profiles:
 
     def publishRun(self):
         # Sanity check
-        if self.textTorrentPath.text() == "":
+        path = self.textTorrentPath.text()
+        if path == "":
             self.warning("种子文件不能为空。")
             return
         
-        if not Path(self.textTorrentPath.text()):
-            self.warning("无法找到种子文件。")
+        if not Path(path).exists():
+            self.warning(f"无法找到种子文件'{path}'。")
+            return
+        
+        if Path(path).suffix != ".torrent":
+            self.warning(f"'{path}' 不是一个 .torrent 文件")
             return
         
         if self.textTitle.text() == "":
             self.warning("标题不能为空。")
             return
+        
+        if self.textDescription.toPlainText() == "":
+            self.warning("内容不能为空。")
 
         # Generate template.toml
         tags = map(lambda x: x.strip() , self.textTags.text().split(","))
@@ -633,7 +641,14 @@ profiles:
         bbcode = parser.feed(html)
         proxy = self.conf["proxy"]
 
+        cookies = self.profile['profiles'][self.menuSelectCookies.currentText()]['cookies']
+
         if self.checkboxDmhyPublish.isChecked():
+            if not re.search(r"https:\/\/share\.dmhy\.org", cookies):
+                if self.warning(f"在身份'{self.menuSelectCookies.currentText()}'中没有找到 dmhy 相关 cookies，请尝试在身份管理器中登录网站后点击'保存身份'。"):
+                    self.tab.setCurrentIndex(1)
+                    self.menuProfileSelection.setCurrentText(self.menuSelectCookies.currentText())
+                return
             intro_templates.append(
                 {
                 'site': 'dmhy',
@@ -643,6 +658,11 @@ profiles:
             )
         
         if self.checkboxNyaaPublish.isChecked():
+            if not re.search(r"https:\/\/nyaa\.si", cookies):
+                if self.warning(f"在身份'{self.menuSelectCookies.currentText()}'中没有找到 nyaa 相关 cookies，请尝试在身份管理器中登录网站后点击'保存身份'。"):
+                    self.tab.setCurrentIndex(1)
+                    self.menuProfileSelection.setCurrentText(self.menuSelectCookies.currentText())
+                return
             intro_templates.append(
                 {
                 'site': 'nyaa',
@@ -652,6 +672,11 @@ profiles:
             )
 
         if self.checkboxAcgripPublish.isChecked():
+            if not re.search(r"https:\/\/acg\.rip", cookies):
+                if self.warning(f"在身份'{self.menuSelectCookies.currentText()}'中没有找到 acgrip 相关 cookies，请尝试在身份管理器中登录网站后点击'保存身份'。"):
+                    self.tab.setCurrentIndex(1)
+                    self.menuProfileSelection.setCurrentText(self.menuSelectCookies.currentText())
+                return
             intro_templates.append(
                 {
                 'site': 'acgrip',
@@ -661,6 +686,11 @@ profiles:
             )
 
         if self.checkboxBangumiPublish.isChecked():
+            if not re.search(r"https:\/\/bangumi\.moe", cookies):
+                if self.warning(f"在身份'{self.menuSelectCookies.currentText()}'中没有找到 acgrip 相关 cookies，请尝试在身份管理器中登录网站后点击'保存身份'。"):
+                    self.tab.setCurrentIndex(1)
+                    self.menuProfileSelection.setCurrentText(self.menuSelectCookies.currentText())
+                return
             intro_templates.append(
                 {
                 'site': 'bangumi',
@@ -670,6 +700,11 @@ profiles:
             )
 
         if self.checkboxAcgnxasiaPublish.isChecked():
+            if not re.search(r"https:\/\/share\.acgnx\.se", cookies):
+                if self.warning(f"在身份'{self.menuSelectCookies.currentText()}'中没有找到 acgnx asia API Token，请尝试在身份管理器中添加 Token 后'保存身份'。"):
+                    self.tab.setCurrentIndex(1)
+                    self.menuProfileSelection.setCurrentText(self.menuSelectCookies.currentText())
+                return
             intro_templates.append(
                 {
                 'site': 'acgnx_asia',
@@ -679,6 +714,11 @@ profiles:
             )
 
         if self.checkboxAcgnxglobalPublish.isChecked():
+            if not re.search(r"https:\/\/acgnx\.se", cookies):
+                if self.warning(f"在身份'{self.menuSelectCookies.currentText()}'中没有找到 acgnx global API Token，请尝试在身份管理器中添加 Token 后'保存身份'。"):
+                    self.tab.setCurrentIndex(1)
+                    self.menuProfileSelection.setCurrentText(self.menuSelectCookies.currentText())
+                return
             intro_templates.append(
                 {
                 'site': 'acgnx_global',

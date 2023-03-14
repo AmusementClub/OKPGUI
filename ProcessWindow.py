@@ -88,6 +88,9 @@ class MyConsole(QWidget):
 
     def onFinished(self, func):
         self.reader.finished.connect(func)
+
+    def closeEvent(self, event):
+        self.reader.terminate()
     
 
         
