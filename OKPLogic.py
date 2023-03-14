@@ -642,6 +642,7 @@ profiles:
         proxy = self.conf["proxy"]
 
         cookies = self.profile['profiles'][self.menuSelectCookies.currentText()]['cookies']
+        profile = self.profile['profiles'][self.menuSelectCookies.currentText()]
 
         if self.checkboxDmhyPublish.isChecked():
             if not re.search(r"https:\/\/share\.dmhy\.org", cookies):
@@ -652,7 +653,7 @@ profiles:
             intro_templates.append(
                 {
                 'site': 'dmhy',
-                'name': self.textDmhyName.text(),
+                'name': profile['dmhyName'],
                 'content': html,
                 }
             )
@@ -666,7 +667,7 @@ profiles:
             intro_templates.append(
                 {
                 'site': 'nyaa',
-                'name': self.textNyaaName.text(),
+                'name': profile['nyaaName'],
                 'content': md,
                 }
             )
@@ -680,7 +681,7 @@ profiles:
             intro_templates.append(
                 {
                 'site': 'acgrip',
-                'name': self.textAcgripName.text(),
+                'name': profile['acgripName'],
                 'content': bbcode,
                 }
             )
@@ -694,7 +695,7 @@ profiles:
             intro_templates.append(
                 {
                 'site': 'bangumi',
-                'name': self.textBangumiName.text(),
+                'name': profile['bangumiName'],
                 'content': html,
                 }
             )
@@ -708,7 +709,7 @@ profiles:
             intro_templates.append(
                 {
                 'site': 'acgnx_asia',
-                'name': self.textAcgnxasiaName.text(),
+                'name': profile['acgnxasiaName'],
                 'content': html,
                 }
             )
@@ -722,7 +723,7 @@ profiles:
             intro_templates.append(
                 {
                 'site': 'acgnx_global',
-                'name': self.textAcgnxglobalName.text(),
+                'name': profile['acgnxglobalName'],
                 'content': html,
                 }
             )
