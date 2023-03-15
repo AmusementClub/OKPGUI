@@ -205,6 +205,10 @@ venv/*
 venv/Lib/site-packages/*
 !venv/Lib/site-packages/HTMLParser.py
 !venv/Lib/site-packages/markupbase.py
+!venv/lib/site-packages/html2bbcode/
+!venv/lib/site-packages/html2bbcode-2.3.3-py3.11.egg-info/
+!venv/lib/site-packages/html2phpbbcode/
+!venv/lib/site-packages/html2phpbbcode-0.1.4.dist-info/
 
 # Installer logs
 pip-log.txt
