@@ -66,6 +66,7 @@ p, li {{ white-space: pre-wrap; }}
         self.buttonBrowse.clicked.connect(self.selectTorrentFile)
         
         self.HomeTab.setAcceptDrops(True)
+        self.tab.currentChanged.connect(self.changeTabHandler)
         # self.textTorrentPath.setAcceptDrops(True)
         self.HomeTab.dragEnterEvent = self.onDragEnterEvent
         self.HomeTab.dropEvent = self.onDropEvent
@@ -120,6 +121,12 @@ p, li {{ white-space: pre-wrap; }}
 
         # publish button
         self.buttonOKP.clicked.connect(self.publishRun)
+
+    def changeTabHandler(self, event):
+        if event == 1:
+            self.reloadProfile()
+        if event == 2:
+            self.loadProxy()
 
     def onDragEnterEvent(self, event):
         if event.mimeData().hasUrls():
