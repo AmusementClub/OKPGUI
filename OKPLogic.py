@@ -96,6 +96,8 @@ p, li {{ white-space: pre-wrap; }}
         self.textEpPattern.textEdited.connect(self.setTitleText)
         self.textTitlePattern.textEdited.connect(self.setTitleText)
 
+        self.menuSelectCookies.currentTextChanged.connect(self.selectCookiesChangeHandler)
+
         self.fileTree.setColumnWidth(0,450)
 
         # tab 2 login
@@ -365,7 +367,57 @@ template:
             title = re.sub(i, m[f'{re.sub("<|>", "", i)}'], title)
         
         self.textTitle.setText(title)
-        
+
+    def selectCookiesChangeHandler(self, event):
+        print(event)
+        cookies = self.profile['profiles'][event]['cookies']
+        try:
+            template = self.conf['template'][event]
+        except:
+            template = defaultdict(lambda : False)
+                                           
+        if not re.search(r"https:\/\/share\.dmhy\.org", cookies):
+            self.checkboxDmhyPublish.setChecked(False)
+            self.checkboxDmhyPublish.setCheckable(False)
+        else:
+            self.checkboxDmhyPublish.setChecked(template['checkDmhy'])
+            self.checkboxDmhyPublish.setCheckable(True)
+
+        if not re.search(r"https:\/\/nyaa\.si", cookies):
+            self.checkboxNyaaPublish.setChecked(False)
+            self.checkboxNyaaPublish.setCheckable(False)
+        else:
+            self.checkboxNyaaPublish.setChecked(template['checkNyaa'])
+            self.checkboxNyaaPublish.setCheckable(True)
+
+        if not re.search(r"https:\/\/acg\.rip", cookies):
+            self.checkboxAcgripPublish.setChecked(False)
+            self.checkboxAcgripPublish.setCheckable(False)
+        else:
+            self.checkboxAcgripPublish.setChecked(template['checkAcgrip'])
+            self.checkboxAcgripPublish.setCheckable(True)
+
+        if not re.search(r"https:\/\/bangumi\.moe", cookies):
+            self.checkboxBangumiPublish.setChecked(False)
+            self.checkboxBangumiPublish.setCheckable(False)
+        else:
+            self.checkboxBangumiPublish.setChecked(template['checkBangumi'])
+            self.checkboxBangumiPublish.setCheckable(True)
+
+        if not re.search(r"https:\/\/share\.acgnx\.se", cookies):
+            self.checkboxAcgnxasiaPublish.setChecked(False)
+            self.checkboxAcgnxasiaPublish.setCheckable(False)
+        else:
+            self.checkboxAcgnxasiaPublish.setChecked(template['checkAcgnxasia'])
+            self.checkboxAcgnxasiaPublish.setCheckable(True)
+
+        if not re.search(r"https:\/\/acgnx\.se", cookies):
+            self.checkboxAcgnxglobalPublish.setChecked(False)
+            self.checkboxAcgnxglobalPublish.setCheckable(False)
+        else:
+            self.checkboxAcgnxglobalPublish.setChecked(template['checkAcgnxglobal'])
+            self.checkboxAcgnxglobalPublish.setCheckable(True)
+
 
     def reloadTemplate(self):
         self.loadConfig()
@@ -403,6 +455,7 @@ template:
             'profile': self.menuSelectCookies.currentText(),
             'checkDmhy': self.checkboxDmhyPublish.isChecked(),
             'checkNyaa': self.checkboxNyaaPublish.isChecked(),
+            'checkBangumi': self.checkboxBangumiPublish.isChecked(),
             'checkAcgrip': self.checkboxAcgripPublish.isChecked(),
             'checkAcgnxasia': self.checkboxAcgnxasiaPublish.isChecked(),
             'checkAcgnxglobal': self.checkboxAcgnxglobalPublish.isChecked(),
@@ -652,11 +705,6 @@ profiles:
         profile = self.profile['profiles'][self.menuSelectCookies.currentText()]
 
         if self.checkboxDmhyPublish.isChecked():
-            if not re.search(r"https:\/\/share\.dmhy\.org", cookies):
-                if self.warning(f"在身份'{self.menuSelectCookies.currentText()}'中没有找到 dmhy 相关 cookies，请尝试在身份管理器中登录网站后点击'保存身份'。"):
-                    self.tab.setCurrentIndex(1)
-                    self.menuProfileSelection.setCurrentText(self.menuSelectCookies.currentText())
-                return
             intro_templates.append(
                 {
                 'site': 'dmhy',
@@ -666,11 +714,6 @@ profiles:
             )
         
         if self.checkboxNyaaPublish.isChecked():
-            if not re.search(r"https:\/\/nyaa\.si", cookies):
-                if self.warning(f"在身份'{self.menuSelectCookies.currentText()}'中没有找到 nyaa 相关 cookies，请尝试在身份管理器中登录网站后点击'保存身份'。"):
-                    self.tab.setCurrentIndex(1)
-                    self.menuProfileSelection.setCurrentText(self.menuSelectCookies.currentText())
-                return
             intro_templates.append(
                 {
                 'site': 'nyaa',
@@ -680,11 +723,6 @@ profiles:
             )
 
         if self.checkboxAcgripPublish.isChecked():
-            if not re.search(r"https:\/\/acg\.rip", cookies):
-                if self.warning(f"在身份'{self.menuSelectCookies.currentText()}'中没有找到 acgrip 相关 cookies，请尝试在身份管理器中登录网站后点击'保存身份'。"):
-                    self.tab.setCurrentIndex(1)
-                    self.menuProfileSelection.setCurrentText(self.menuSelectCookies.currentText())
-                return
             intro_templates.append(
                 {
                 'site': 'acgrip',
@@ -694,11 +732,6 @@ profiles:
             )
 
         if self.checkboxBangumiPublish.isChecked():
-            if not re.search(r"https:\/\/bangumi\.moe", cookies):
-                if self.warning(f"在身份'{self.menuSelectCookies.currentText()}'中没有找到 acgrip 相关 cookies，请尝试在身份管理器中登录网站后点击'保存身份'。"):
-                    self.tab.setCurrentIndex(1)
-                    self.menuProfileSelection.setCurrentText(self.menuSelectCookies.currentText())
-                return
             intro_templates.append(
                 {
                 'site': 'bangumi',
@@ -708,11 +741,6 @@ profiles:
             )
 
         if self.checkboxAcgnxasiaPublish.isChecked():
-            if not re.search(r"https:\/\/share\.acgnx\.se", cookies):
-                if self.warning(f"在身份'{self.menuSelectCookies.currentText()}'中没有找到 acgnx asia API Token，请尝试在身份管理器中添加 Token 后'保存身份'。"):
-                    self.tab.setCurrentIndex(1)
-                    self.menuProfileSelection.setCurrentText(self.menuSelectCookies.currentText())
-                return
             intro_templates.append(
                 {
                 'site': 'acgnx_asia',
@@ -722,11 +750,6 @@ profiles:
             )
 
         if self.checkboxAcgnxglobalPublish.isChecked():
-            if not re.search(r"https:\/\/acgnx\.se", cookies):
-                if self.warning(f"在身份'{self.menuSelectCookies.currentText()}'中没有找到 acgnx global API Token，请尝试在身份管理器中添加 Token 后'保存身份'。"):
-                    self.tab.setCurrentIndex(1)
-                    self.menuProfileSelection.setCurrentText(self.menuSelectCookies.currentText())
-                return
             intro_templates.append(
                 {
                 'site': 'acgnx_global',
