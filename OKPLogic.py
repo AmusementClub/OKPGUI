@@ -335,6 +335,7 @@ template:
             conf = defaultdict(bool, self.conf['template'][selected])
             self.checkboxDmhyPublish.setChecked(conf['checkDmhy'])
             self.checkboxNyaaPublish.setChecked(conf['checkNyaa'])
+            self.checkboxBangumiPublish.setChecked(conf['checkBangumi'])
             self.checkboxAcgripPublish.setChecked(conf['checkAcgrip'])
             self.checkboxAcgnxasiaPublish.setChecked(conf['checkAcgnxasia'])
             self.checkboxAcgnxglobalPublish.setChecked(conf['checkAcgnxglobal'])
@@ -369,53 +370,46 @@ template:
         self.textTitle.setText(title)
 
     def selectCookiesChangeHandler(self, event):
-        print(event)
+        if event == "":
+            return
+
         cookies = self.profile['profiles'][event]['cookies']
-        try:
-            template = self.conf['template'][event]
-        except:
-            template = defaultdict(lambda : False)
+
                                            
         if not re.search(r"https:\/\/share\.dmhy\.org", cookies):
             self.checkboxDmhyPublish.setChecked(False)
             self.checkboxDmhyPublish.setCheckable(False)
         else:
-            self.checkboxDmhyPublish.setChecked(template['checkDmhy'])
             self.checkboxDmhyPublish.setCheckable(True)
 
         if not re.search(r"https:\/\/nyaa\.si", cookies):
             self.checkboxNyaaPublish.setChecked(False)
             self.checkboxNyaaPublish.setCheckable(False)
         else:
-            self.checkboxNyaaPublish.setChecked(template['checkNyaa'])
             self.checkboxNyaaPublish.setCheckable(True)
 
         if not re.search(r"https:\/\/acg\.rip", cookies):
             self.checkboxAcgripPublish.setChecked(False)
             self.checkboxAcgripPublish.setCheckable(False)
         else:
-            self.checkboxAcgripPublish.setChecked(template['checkAcgrip'])
             self.checkboxAcgripPublish.setCheckable(True)
 
         if not re.search(r"https:\/\/bangumi\.moe", cookies):
             self.checkboxBangumiPublish.setChecked(False)
             self.checkboxBangumiPublish.setCheckable(False)
         else:
-            self.checkboxBangumiPublish.setChecked(template['checkBangumi'])
             self.checkboxBangumiPublish.setCheckable(True)
 
         if not re.search(r"https:\/\/share\.acgnx\.se", cookies):
             self.checkboxAcgnxasiaPublish.setChecked(False)
             self.checkboxAcgnxasiaPublish.setCheckable(False)
         else:
-            self.checkboxAcgnxasiaPublish.setChecked(template['checkAcgnxasia'])
             self.checkboxAcgnxasiaPublish.setCheckable(True)
 
         if not re.search(r"https:\/\/acgnx\.se", cookies):
             self.checkboxAcgnxglobalPublish.setChecked(False)
             self.checkboxAcgnxglobalPublish.setCheckable(False)
         else:
-            self.checkboxAcgnxglobalPublish.setChecked(template['checkAcgnxglobal'])
             self.checkboxAcgnxglobalPublish.setCheckable(True)
 
 
@@ -704,7 +698,7 @@ profiles:
         cookies = self.profile['profiles'][self.menuSelectCookies.currentText()]['cookies']
         profile = self.profile['profiles'][self.menuSelectCookies.currentText()]
 
-        if self.checkboxDmhyPublish.isChecked():
+        if self.checkboxDmhyPublish.isChecked() and self.checkboxDmhyPublish.isCheckable():
             intro_templates.append(
                 {
                 'site': 'dmhy',
@@ -713,7 +707,7 @@ profiles:
                 }
             )
         
-        if self.checkboxNyaaPublish.isChecked():
+        if self.checkboxNyaaPublish.isChecked() and self.checkboxNyaaPublish.isCheckable():
             intro_templates.append(
                 {
                 'site': 'nyaa',
@@ -722,7 +716,7 @@ profiles:
                 }
             )
 
-        if self.checkboxAcgripPublish.isChecked():
+        if self.checkboxAcgripPublish.isChecked() and self.checkboxAcgripPublish.isCheckable():
             intro_templates.append(
                 {
                 'site': 'acgrip',
@@ -731,7 +725,7 @@ profiles:
                 }
             )
 
-        if self.checkboxBangumiPublish.isChecked():
+        if self.checkboxBangumiPublish.isChecked() and self.checkboxBangumiPublish.isCheckable():
             intro_templates.append(
                 {
                 'site': 'bangumi',
@@ -740,7 +734,7 @@ profiles:
                 }
             )
 
-        if self.checkboxAcgnxasiaPublish.isChecked():
+        if self.checkboxAcgnxasiaPublish.isChecked() and self.checkboxAcgnxasiaPublish.isCheckable():
             intro_templates.append(
                 {
                 'site': 'acgnx_asia',
@@ -749,7 +743,7 @@ profiles:
                 }
             )
 
-        if self.checkboxAcgnxglobalPublish.isChecked():
+        if self.checkboxAcgnxglobalPublish.isChecked() and self.checkboxAcgnxglobalPublish.isCheckable():
             intro_templates.append(
                 {
                 'site': 'acgnx_global',
