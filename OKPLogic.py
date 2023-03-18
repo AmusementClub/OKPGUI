@@ -393,7 +393,7 @@ template:
             'about': self.textAbout.text(),
             'tags': self.textTags.text(),
             'description': self.textDescription.toPlainText(),
-            'profile': self.menuProfileSelection.currentText(),
+            'profile': self.menuSelectCookies.currentText(),
             'checkDmhy': self.checkboxDmhyPublish.isChecked(),
             'checkNyaa': self.checkboxNyaaPublish.isChecked(),
             'checkAcgrip': self.checkboxAcgripPublish.isChecked(),
