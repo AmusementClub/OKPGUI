@@ -17,7 +17,7 @@ from collections import defaultdict
 import torrent_parser as tp
 from ProcessWindow import MyConsole
 
-VERSION = "v0.1.2 Beta"
+VERSION = "v0.1.3 Beta"
 
 CATEGORY = {
     'Anime': ['Default', 'MV', 'TV', 'Movie', 'Collection', 'Raw', 'English'],
@@ -79,6 +79,7 @@ p, li {{ white-space: pre-wrap; }}
 
         self.reloadTemplate()
         self.updateTemplate()
+        self.selectCookiesChangeHandler(self.menuSelectCookies.currentText())
 
         self.loadProxy()
 
