@@ -20,10 +20,12 @@ _以下排名无先后_
 1. acgrip cookie 失效后会刷新，退出登录疑似会直接失效，ua 不同也会登录失败。
 2. acgnx 站点登录可能会被 Cloudflare 风控，鉴于其站点会同步 nyaa、dmhy、acgrip 的种子，可以选择不使用其上传。
 3. 萌番组暂不支持自定义 TAG，目前仅支持 _Team ID_ 和 setting 中 tags 映射的分类两个 TAG。
-4. **请将 Cookies 视为你的账户密码并妥善保护，任何获取到 Cookies 文件(以及`okpgui_profile.yml`)的人都可以轻易登录你的账户。**
+
 
 
 ## 使用方法
+
+**请将 Cookies 视为你的账户密码并妥善保护，任何获取到 Cookies 文件(以及`okpgui_profile.yml`)的人都可以轻易登录你的账户。**
 
 ### 快速开始
 
@@ -187,17 +189,16 @@ pip3 install requirements.txt
 
 1. 为什么无法勾选某发布网站？
 
-   如果发现某个网站不能打钩，说明选择的身份中并没有添加这个网站的信息（Cookies/API Token），请移步身份管理器中编辑身份。
+   如果发现某个网站不能勾选，则说明选择的身份中并没有添加这个网站的信息（Cookies/API Token），请移步身份管理器中编辑身份。
 
-2. 在设置好了 cookies 之后无法访问某个发布站
+2. 在设置好了 cookies 之后无法访问某个发布站。
 
    a. 请检查是否下载最新版的 OKP.Core。
    b. 尝试删除身份管理器中发布站对应的 cookies 信息，点击保存身份，然后重新登录。
 
 3. 能否让用户自行提交发布站所需的 html, bbcode 发布内容？
 
-   作者认为 Less is more，简单的 Markdown 足够满足一般的排版需求。
-   所以暂时不会加入提交 html, bbcode 的功能。
+   作者认为 Less is more，简单的 Markdown 足以满足一般的排版需求，所以暂时不会加入提交 html, bbcode 的功能。
    如有此功能的需求，可以使用 OKP.Core 的 CLI。
 
 4. 有 Bug
