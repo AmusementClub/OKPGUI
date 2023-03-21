@@ -2,13 +2,36 @@
 
 此软件为 [OKP](https://github.com/AmusementClub/OKP/) 的 GUI，由娱乐部制作，用于快速在多个 BT 资源站发布种子。
 
+### 支持站点
+
+_以下排名无先后_
+
+| 站点                                          | 代号     | 
+| --------------------------------------------- | ------------ | 
+| [Nyaa](https://nyaa.si/)                      | nyaa         | 
+| [動漫花園](https://share.dmhy.org/)           | dmhy         |
+| [ACG.RIP](https://acg.rip/)                   | acgrip       |
+| [末日動漫資源庫](https://share.acgnx.se/)     | acgnx_asia   | 
+| [AcgnX Torrent Global](https://www.acgnx.se/) | acgnx_global |
+| [萌番组](https://bangumi.moe/)                | bangumi      |
+
+注：
+
+1. acgrip cookie 失效后会刷新，退出登录疑似会直接失效，ua 不同也会登录失败。
+2. acgnx 站点登录可能会被 Cloudflare 风控，鉴于其站点会同步 nyaa、dmhy、acgrip 的种子，可以选择不使用其上传。
+3. 萌番组暂不支持自定义 TAG，目前仅支持 _Team ID_ 和 setting 中 tags 映射的分类两个 TAG。
+4. **请将 Cookies 视为你的账户密码并妥善保护，任何获取到 Cookies 文件(以及`okpgui_profile.yml`)的人都可以轻易登录你的账户。**
+
+
 ## 使用方法
 
 ### 快速开始
 
-1. 将程序`OKPGUI.exe`复制到`OKP.Core.exe`的同一个文件夹下，并打开程序。请[点此下载](https://github.com/AmusementClub/OKP/actions)最新版 OKP。
+1. 将程序`OKPGUI.exe`复制到`OKP.Core.exe`的同一个文件夹下，并打开程序。
+   [点此下载](https://github.com/AmusementClub/OKP/releases)最新版 OKP，[点此下载](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) OKP 的依赖 .NET 6 Runtime。
+   > 若你使用的是非 Windows 操作系统，请将 `OKP.Core` 重命名为 `OKP.Core.exe`。
    
-2. 第一次使用时，请先使用身份管理器创建一个新的身份，一个身份中包含了你的 Cookies 信息。
+2. 第一次使用时，请先使用`身份管理器`创建一个新的`身份`，一个`身份`中记载了你的登录发布站的 Cookies 和 API Token。
    点击`身份管理器`进入身份管理器页面。
 
    ![](/image/ProfileManager01.jpg)
@@ -30,7 +53,7 @@
 
    ![](image/ProfileManager03.jpg)
 
-8. 在登录完所有需要的网站之后，点击`保存身份`，使身份信息（cookies）得到保存。
+8. 在登录完所有需要的网站之后，点击`保存身份`，使身份信息得到保存。
 
 9.  然后，我们可以点击`主页`回到主页，并创建一个新的模板。
 
@@ -42,21 +65,29 @@
 
 13. 如果要发布在动漫花园，在`海报链接`一栏填入海报的 url，如果要发布在 nyaa.si，可以在`关于`里面填入 about 信息。
 
-14. `Tags`一栏可以填写标签，以逗号分隔开，例如在发布合集时填写 `Anime, Collection`（逗号后是否空格不会影响程序判断）。平时发布单集时填写 `Anime` 即可。该标签决定了资源在各个网站的分类，所有支持的标签和详细规则请参考 [OKP 的 wiki](https://github.com/AmusementClub/OKP/wiki/TagsConvert)。
+14. `Tags` 决定了资源在各个网站的分类，所有支持的标签和详细规则请参考 [OKP 的 wiki](https://github.com/AmusementClub/OKP/wiki/TagsConvert)。
+    > 在填写时以逗号分隔开，例如在发布合集时填写 `Anime, Collection`（逗号后是否空格不会影响程序判断）。平时发布单集时填写 `Anime` 即可。
+    > 注意： **这不是 bangumi.moe 的 tag 系统。**
 
 15. `集数匹配`和`标题匹配`是选填项，其使用方法请[参考此处](#标题匹配)。
 
-16. 在`内容`栏中使用 markdown 格式填写发布贴的详细内容，填写完毕后点击`预览`按钮可以预览其显示效果。
+16. 在`内容`栏中使用 **markdown** 格式填写发布贴的详细内容，填写完毕后点击`预览`按钮可以预览其显示效果。
 
-17. 在`选择身份`的选单中选择发布时使用的身份，我们选择刚才在身份管理器中创建的`LoliHouse`身份，如果需要其他的身份，请移步至身份管理器中创建。
+      > 暂不支持用户使用 html 或 bbcode
+
+17. 在`选择身份`的选单中选择发布时使用的身份，在此例子中，我们选择刚才在身份管理器中创建的`LoliHouse`身份，如果需要其他的身份，请移步至身份管理器中创建。
 
 18. 在下方需要发布的站点的复选框中打钩。
+    > 如果发现某个网站不能打钩，说明选择的身份中并没有添加这个网站的信息（Cookies/API Token），请移步身份管理器中编辑身份。
+
+      ![](image/Home01.jpg)
 
 19. 发布时不需要保存模板，程序会根据目前文本框中的内容和选项来发布，也就是说，即使有模板，但每次发布前也可以手动微调发布标题或者是内容等。如果想要下次重复利用此发布模板，请别忘记了保存模板。
 
-20. 点击`One Key Publish!`呼出 OKP 一键发布，在 OKP 打开的控制台中，确认发布的标题和种子文件，敲下回车键即可确认发布。
+20. 点击`One Key Publish!`呼出 OKP 一键发布，在打开的控制台中，确认发布的标题和种子文件准确无误后，点击确定按钮即可发布。
 
-![](image/Home01.jpg)
+      ![](image/Console.jpg)
+
 
 ---
 
@@ -86,21 +117,21 @@
 
 在集数匹配一栏中，把文件名中的重要信息用 `<>` 标签替换，并在其中填入字符来命名，例如说
 
-集数匹配：
+**集数匹配**：
 ```
 [SweetSub] Oniichan ha Oshimai! - <ep> [WebRip][<res>P][AVC 8bit]
 ```
 
 我们再在标题匹配中以 `<>` 标签替换相应的值
 
-标题匹配：
+**标题匹配**：
 ```
 [SweetSub][不当哥哥了！][Oniichan ha Oshimai!][<ep>][WebRip][<res>P][AVC 8bit][简日双语][无修版]
 ```
 
 如果我们此时添加一个种子文件
 
-例如 
+例如:
 ```
 [SweetSub] Oniichan ha Oshimai! - 01 [WebRip][720P][AVC 8bit][CHS].mp4.torrent
 ```
@@ -122,7 +153,7 @@
 
 为了方便对抗 GFW，程序内置了 HTTP 代理功能。
 
-在身份管理器中选择代理类型 HTTP，并且在 Host 一栏中填入 HTTP 代理的地址，例如说 `http://127.0.0.1:7890`，然后点击`保存身份`，即可在访问网站时使用代理，同时，该代理也会直接传给 OKP.Core 所使用。
+在`杂项`选项卡中选择代理类型 HTTP，并且在 Host 一栏中填入 HTTP 代理的地址，例如说 `http://127.0.0.1:7890`，然后点击`保存身份`，即可在访问网站时使用代理，同时，该代理也会直接传给 OKP.Core 所使用。
 
 注意，代理的改动必须点击`应用`后才会生效。
 
@@ -149,3 +180,30 @@ pip3 install requirements.txt
 注意：绝对不要手动编辑编译后的 .py 文件，因为重新编译之后所有改动将会丢失。
 
 在完成修改后可以调用 `make.bat` 将程序编译为 exe 文件。 
+
+----
+
+## 常见问题
+
+1. 为什么无法勾选某发布网站？
+
+   如果发现某个网站不能打钩，说明选择的身份中并没有添加这个网站的信息（Cookies/API Token），请移步身份管理器中编辑身份。
+
+2. 在设置好了 cookies 之后无法访问某个发布站
+
+   a. 请检查是否下载最新版的 OKP.Core。
+   b. 尝试删除身份管理器中发布站对应的 cookies 信息，点击保存身份，然后重新登录。
+
+3. 能否让用户自行提交发布站所需的 html, bbcode 发布内容？
+
+   作者认为 Less is more，简单的 Markdown 足够满足一般的排版需求。
+   所以暂时不会加入提交 html, bbcode 的功能。
+   如有此功能的需求，可以使用 OKP.Core 的 CLI。
+
+4. 有 Bug
+   
+   去[此页面](https://github.com/AmusementClub/OKPGUI/issues/new/choose)创建一个 issue 并选择 Bug report，请尽量准确地描述要如何重现此 bug。
+
+5. 想要新功能
+
+   去[此页面](https://github.com/AmusementClub/OKPGUI/issues/new/choose)创建一个 issue 并选择 Feature request。
