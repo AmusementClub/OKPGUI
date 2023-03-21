@@ -407,7 +407,7 @@ template:
         else:
             self.checkboxAcgnxasiaPublish.setCheckable(True)
 
-        if cookies is None or not re.search(r"https:\/\/acgnx\.se", cookies):
+        if cookies is None or not re.search(r"https:\/\/www\.acgnx\.se", cookies):
             self.checkboxAcgnxglobalPublish.setChecked(False)
             self.checkboxAcgnxglobalPublish.setCheckable(False)
         else:
