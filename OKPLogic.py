@@ -284,7 +284,7 @@ template:
         c = self.textCookies.toPlainText()
         cookies = re.sub(r"https://\.", "https://", cookies)
         if c == "":
-            if cookies[-1] != "\n":
+            if len(cookies) > 0 and cookies[-1] != "\n":
                 cookies += "\n"
             self.textCookies.setText(cookies)
         else:
@@ -376,38 +376,38 @@ template:
 
         cookies = self.profile['profiles'][event]['cookies']
 
-                                           
-        if not re.search(r"https:\/\/share\.dmhy\.org", cookies):
+
+        if cookies is None or not re.search(r"https:\/\/share\.dmhy\.org", cookies):
             self.checkboxDmhyPublish.setChecked(False)
             self.checkboxDmhyPublish.setCheckable(False)
         else:
             self.checkboxDmhyPublish.setCheckable(True)
 
-        if not re.search(r"https:\/\/nyaa\.si", cookies):
+        if cookies is None or not re.search(r"https:\/\/nyaa\.si", cookies):
             self.checkboxNyaaPublish.setChecked(False)
             self.checkboxNyaaPublish.setCheckable(False)
         else:
             self.checkboxNyaaPublish.setCheckable(True)
 
-        if not re.search(r"https:\/\/acg\.rip", cookies):
+        if cookies is None or not re.search(r"https:\/\/acg\.rip", cookies):
             self.checkboxAcgripPublish.setChecked(False)
             self.checkboxAcgripPublish.setCheckable(False)
         else:
             self.checkboxAcgripPublish.setCheckable(True)
 
-        if not re.search(r"https:\/\/bangumi\.moe", cookies):
+        if cookies is None or not re.search(r"https:\/\/bangumi\.moe", cookies):
             self.checkboxBangumiPublish.setChecked(False)
             self.checkboxBangumiPublish.setCheckable(False)
         else:
             self.checkboxBangumiPublish.setCheckable(True)
 
-        if not re.search(r"https:\/\/share\.acgnx\.se", cookies):
+        if cookies is None or not re.search(r"https:\/\/share\.acgnx\.se", cookies):
             self.checkboxAcgnxasiaPublish.setChecked(False)
             self.checkboxAcgnxasiaPublish.setCheckable(False)
         else:
             self.checkboxAcgnxasiaPublish.setCheckable(True)
 
-        if not re.search(r"https:\/\/acgnx\.se", cookies):
+        if cookies is None or not re.search(r"https:\/\/acgnx\.se", cookies):
             self.checkboxAcgnxglobalPublish.setChecked(False)
             self.checkboxAcgnxglobalPublish.setCheckable(False)
         else:
