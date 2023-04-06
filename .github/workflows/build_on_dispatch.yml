@@ -24,12 +24,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m venv venv
-        venv\Scripts\activate.bat
+        & ./venv/Scripts/Activate.ps1
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Build with Pyinstaller
       run: |
-        pyinstaller --onefile --noconsole main.py --collect-all html2phpbbcode --version-file versionfile.rc -n OKPGUI.exe
+        pyinstaller --onefile --noconsole main.py -p ./venv/Lib/site-packages --collect-all html2phpbbcode --version-file versionfile.rc -n OKPGUI.exe
     - name: Sign binary
       env:
         WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
