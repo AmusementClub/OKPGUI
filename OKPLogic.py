@@ -1,24 +1,36 @@
-from PyQt6.QtCore import QUrl, QProcess, Qt, QFileInfo
-from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QDialog, \
-    QTreeWidgetItem, QFileIconProvider, QStyle
+from PyQt6.QtCore import (
+    QUrl, 
+    QProcess, 
+    Qt, 
+    QFileInfo,
+)
+from PyQt6.QtWidgets import (
+    QApplication, 
+    QWidget, 
+    QMainWindow, 
+    QFileDialog, 
+    QDialog,
+    QTreeWidgetItem, 
+    QFileIconProvider, 
+    QStyle,
+)
 import sys
 from OKPUI import Ui_MainWindow
 from WarningDialog import Ui_Dialog
 import yaml
 from pathlib import Path
 from WebHelper import WebEngineView
-import webbrowser
 import re
 import markdown
 from MarkdownView import MarkdownViewWindow
 import toml
-import subprocess
 from html2phpbbcode.parser import HTML2PHPBBCode
 from collections import defaultdict
 import torrent_parser as tp
 from ProcessWindow import MyConsole
+import platform
 
-VERSION = "v0.1.4 Beta"
+VERSION = "v0.1.5 Beta"
 
 CATEGORY = {
     'Anime': ['Default', 'MV', 'TV', 'Movie', 'Collection', 'Raw', 'English'],
@@ -88,8 +100,6 @@ p, li {{ white-space: pre-wrap; }}
         self.buttonSaveTemplate.clicked.connect(self.saveTemplate)
         self.buttonDeleteTemplate.clicked.connect(self.deleteTemplate)
 
-        # Select tags
-        self.buttonHowToUseTags.clicked.connect(lambda _: webbrowser.open("https://github.com/AmusementClub/OKP/wiki/TagsConvert"))
 
         # preview markdown
         self.buttonPreviewMarkdown.clicked.connect(self.previewMarkdown)
@@ -824,6 +834,8 @@ class WarningDialog(QDialog, Ui_Dialog):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+    if platform.system() != "Windows":
+        app.setStyle('Fusion')
 
     window = OKPMainWIndow()
     window.show()

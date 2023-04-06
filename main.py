@@ -8,7 +8,7 @@ import platform
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     if platform.system() != "Windows":
-        app.setStyle('Windows')
+        app.setStyle('Fusion')
 
     window = OKPMainWIndow()
     window.show()
