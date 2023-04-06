@@ -29,7 +29,8 @@ jobs:
         pip install -r requirements.txt
     - name: Build with Pyinstaller
       run: |
-        pyinstaller --onefile --noconsole main.py -p ./venv/Lib/site-packages --collect-all html2phpbbcode --version-file versionfile.rc -n OKPGUI.exe
+        & ./venv/Scripts/Activate.ps1
+        pyinstaller --onefile --noconsole main.py --collect-all html2phpbbcode --version-file versionfile.rc -n OKPGUI.exe
     - name: Sign binary
       env:
         WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
