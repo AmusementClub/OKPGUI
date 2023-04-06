@@ -1,1 +1,1 @@
-pyinstaller --onefile --noconsole main.py --collect-all html2phpbbcode -n OKPGUI.exe
+pyinstaller --onefile --noconsole main.py --collect-all html2phpbbcode --version-file versionfile.rc -n OKPGUI.exe
