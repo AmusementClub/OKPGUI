@@ -1,5 +1,6 @@
-from PyQt6.QtCore import QUrl, QProcess, Qt
-from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QDialog, QTreeWidgetItem
+from PyQt6.QtCore import QUrl, QProcess, Qt, QFileInfo
+from PyQt6.QtWidgets import QApplication, QWidget, QMainWindow, QFileDialog, QDialog, \
+    QTreeWidgetItem, QFileIconProvider, QStyle
 import sys
 from OKPUI import Ui_MainWindow
 from WarningDialog import Ui_Dialog
@@ -173,14 +174,18 @@ p, li {{ white-space: pre-wrap; }}
             root = QTreeWidgetItem(self.fileTree)
             root.setText(0, Path(data['info']['name']).stem)
             root.setText(1, sizeof_fmt(data['info']['length']))
+            file_info = QFileInfo(str(data['info']['name']))
+            file_icon_provider = QFileIconProvider()
+            root.setIcon(0, file_icon_provider.icon(file_info))
 
         else:
             # Multi file torrent
             data = data['info']['files']
-
+            folder_icon = QApplication.style().standardIcon(QStyle.StandardPixmap.SP_DirIcon)
 
             root = QTreeWidgetItem(self.fileTree)
             root.setText(0, torrentPath.stem)
+            root.setIcon(0, folder_icon)
             root.setExpanded(True)
             self.fileTree.insertTopLevelItem(0, root)
 
@@ -211,9 +216,16 @@ p, li {{ white-space: pre-wrap; }}
                 item = QTreeWidgetItem(nodes[f'{eval(n)[:-1]}'])
                 item.setText(0, eval(n)[-1])
                 item.setText(1, sizeof_fmt(nodes[n]))
+                if nodes[n] == -1:
+                    item.setIcon(0, folder_icon)
+                else:
+                    file_info = QFileInfo(eval(n)[-1])
+                    file_icon_provider = QFileIconProvider()
+                    item.setIcon(0, file_icon_provider.icon(file_info))
                 nodes[n] = item
 
             self.fileTree.sortByColumn(1, Qt.SortOrder.AscendingOrder)
+            self.fileTree.setAlternatingRowColors(True)
 
 
 
