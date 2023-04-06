@@ -39,7 +39,7 @@ jobs:
         Set-Content -Path certificate/tempCert.txt -Value $env:WINDOWS_CERTIFICATE
         certutil -decode certificate/tempCert.txt certificate/certificate.pfx
         Remove-Item -path certificate -include tempCert.txt
-        "C:/Program Files (x86)/Windows Kits/10/bin/10.0.17763.0/x86/signtool.exe" sign /v /f certificate/certificate.pfx /p $env:WINDOWS_CERTIFICATE_PASSWORD /t http://timestamp.digicert.com/ /fd SHA256 dist/OKPGUI.exe
+        & "C:/Program Files (x86)/Windows Kits/10/bin/10.0.17763.0/x86/signtool.exe" sign /v /f certificate/certificate.pfx /p $env:WINDOWS_CERTIFICATE_PASSWORD /t http://timestamp.digicert.com/ /fd SHA256 dist/OKPGUI.exe
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
