@@ -28,7 +28,7 @@ jobs:
     - name: Build with Pyinstaller
       run: |
         source ./venv/bin/activate
-        pyinstaller --onefile --noconsole main.py -p ./venv/Lib/site-packages --collect-all html2phpbbcode --target-arch universal2 --osx-bundle-identifier com.AmusementClub.Publish.OKPGUI -n OKPGUI.app
+        pyinstaller --onefile --noconsole main.py -p ./venv/Lib/site-packages --collect-all html2phpbbcode --osx-bundle-identifier com.AmusementClub.Publish.OKPGUI -n OKPGUI.app
     # - name: Sign binary 
     #   env:
     #     WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
