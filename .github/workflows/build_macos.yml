@@ -1,0 +1,47 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Build Package
+
+on:
+  workflow_dispatch:
+    #branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  Build_MacOS:
+    runs-on: 	macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.11"
+    - name: Install dependencies
+      run: |
+        python -m venv venv
+        /venv/Scripts/activate
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Build with Pyinstaller
+      run: |
+        ./venv/Scripts/activate
+        pyinstaller --onefile --noconsole main.py --collect-all html2phpbbcode -n OKPGUI.app
+    # - name: Sign binary
+    #   env:
+    #     WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
+    #     WINDOWS_CERTIFICATE_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+    #   run: |
+    #     New-Item -ItemType directory -Path certificate
+    #     Set-Content -Path certificate/tempCert.txt -Value $env:WINDOWS_CERTIFICATE
+    #     certutil -decode certificate/tempCert.txt certificate/certificate.pfx
+    #     Remove-Item -path certificate -include tempCert.txt
+    #     & "C:/Program Files (x86)/Windows Kits/10/bin/10.0.17763.0/x86/signtool.exe" sign /v /f certificate/certificate.pfx /p $env:WINDOWS_CERTIFICATE_PASSWORD /t http://timestamp.digicert.com/ /fd SHA256 dist/OKPGUI.exe
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: MacOS-package
+        path: dist/OKPGUI.app
+     
