@@ -22,12 +22,12 @@ jobs:
     - name: Install dependencies
       run: |
         python -m venv venv
-        source /venv/bin/activate
+        source ./venv/bin/activate
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Build with Pyinstaller
       run: |
-        source /venv/bin/activate
+        source ./venv/bin/activate
         pyinstaller --onefile --noconsole main.py --collect-all html2phpbbcode -n OKPGUI.app
     # - name: Sign binary
     #   env:
