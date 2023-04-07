@@ -28,7 +28,7 @@ jobs:
     - name: Build with Pyinstaller
       run: |
         source ./venv/bin/activate
-        pyinstaller --onefile --noconsole main.py -p ./venv/Lib/site-packages --collect-all html2phpbbcode --osx-bundle-identifier com.AmusementClub.Publish.OKPGUI -n OKPGUI
+        pyinstaller --onefile --noconsole main.py -p ./venv/Lib/site-packages --collect-all html2phpbbcode --osx-bundle-identifier com.AmusementClub.Publish.OKPGUI -n OKPGUI.app
     # - name: Sign binary 
     #   env:
     #     WINDOWS_CERTIFICATE: ${{ secrets.WINDOWS_CERTIFICATE }}
@@ -43,5 +43,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: MacOS-package
-        path: dist
+        path: dist/OKPGUI.app
      
