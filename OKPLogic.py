@@ -30,7 +30,7 @@ import torrent_parser as tp
 from ProcessWindow import MyConsole
 import platform
 
-VERSION = "v0.1.5 Beta"
+VERSION = "v0.1.6 Beta"
 
 CATEGORY = {
     'Anime': ['Default', 'MV', 'TV', 'Movie', 'Collection', 'Raw', 'English'],
@@ -353,6 +353,7 @@ template:
             self.reloadMenuSelectCookies()
             self.textTags.setText(conf['tags'])
             self.textTitle.setText(conf['title'])
+            self.setTitleText()
             self.conf['template'][selected] = dict(conf)
 
             conf = defaultdict(bool, self.conf['template'][selected])
