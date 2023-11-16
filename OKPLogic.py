@@ -30,7 +30,7 @@ import torrent_parser as tp
 from ProcessWindow import MyConsole
 import platform
 
-VERSION = "v0.1.6 Beta"
+VERSION = "v0.1.7 Beta"
 
 CATEGORY = {
     'Anime': ['Default', 'MV', 'TV', 'Movie', 'Collection', 'Raw', 'English'],

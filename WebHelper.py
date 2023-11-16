@@ -64,7 +64,7 @@ def filterCookies(cookie: QNetworkCookie) -> bool:
         if bytestostr(cookie.name().data()) == "session":
             return True
     if cookie.domain() == "acg.rip":
-        if bytestostr(cookie.name().data()) == "remember_user_token":
+        if bytestostr(cookie.name().data()) == "_kanako_session":
             return True
     if cookie.domain() == "bangumi.moe":
         if bytestostr(cookie.name().data()) in {"locale", "koa:sess", "koa:sess.sig"}:

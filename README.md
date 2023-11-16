@@ -172,8 +172,13 @@ _以下排名无先后_
 ```
 python -m venv venv
 venv\Scripts\activate.bat
-pip3 install requirements.txt
+pip3 install install setuptools==57.5.0 --upgrade
+pip3 install -r requirements.txt
 ```
+
+如果使用非 cmd，请将第二步换成对应的脚本。
+
+第三步是因为安装 html2phpbbcode 需要 use_2to3 支持。
 
 运行 `main.py` 或者 `OKPLogic.py` 即可开始 debug。
 
